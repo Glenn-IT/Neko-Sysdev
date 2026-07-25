@@ -9,28 +9,28 @@ InfinityFree site.
 
 ## Before you start — what you have right now
 
-| | |
-|---|---|
-| Domain | `neko-sysdev.online`, registered at **Hostinger** |
-| Hostinger hosting plan | **None** — domain only |
-| Current nameservers | `ns1.byet.org` … `ns5.byet.org` (**InfinityFree**) |
-| Current A record | `185.27.134.59` (InfinityFree) |
-| Currently live | The **old** single-page site |
-| New site | This repo — built, tested, 3 commits, not yet pushed anywhere |
+|                        |                                                               |
+| ---------------------- | ------------------------------------------------------------- |
+| Domain                 | `neko-sysdev.online`, registered at **Hostinger**             |
+| Hostinger hosting plan | **None** — domain only                                        |
+| Current nameservers    | `ns1.byet.org` … `ns5.byet.org` (**InfinityFree**)            |
+| Current A record       | `185.27.134.59` (InfinityFree)                                |
+| Currently live         | The **old** single-page site                                  |
+| New site               | This repo — built, tested, 3 commits, not yet pushed anywhere |
 
 ### Why we are moving hosts
 
 This was measured against your live domain, not guessed:
 
-| Crawler | Old host today | After this migration |
-|---|---|---|
-| Googlebot | ✅ 200 | ✅ 200 |
-| Bingbot | ✅ 200 | ✅ 200 |
-| GPTBot (ChatGPT) | ❌ **403 Forbidden** | ✅ 200 |
-| ClaudeBot | ❌ **403 Forbidden** | ✅ 200 |
-| PerplexityBot | ❌ **403 Forbidden** | ✅ 200 |
-| CCBot (Common Crawl) | ❌ **403 Forbidden** | ✅ 200 |
-| meta-externalagent | ❌ **403 Forbidden** | ✅ 200 |
+| Crawler              | Old host today       | After this migration |
+| -------------------- | -------------------- | -------------------- |
+| Googlebot            | ✅ 200               | ✅ 200               |
+| Bingbot              | ✅ 200               | ✅ 200               |
+| GPTBot (ChatGPT)     | ❌ **403 Forbidden** | ✅ 200               |
+| ClaudeBot            | ❌ **403 Forbidden** | ✅ 200               |
+| PerplexityBot        | ❌ **403 Forbidden** | ✅ 200               |
+| CCBot (Common Crawl) | ❌ **403 Forbidden** | ✅ 200               |
+| meta-externalagent   | ❌ **403 Forbidden** | ✅ 200               |
 
 InfinityFree also serves a JavaScript cookie challenge (a 0.8 KB `aes.js` page) to anything not on
 its user-agent whitelist, instead of your actual content.
@@ -64,13 +64,13 @@ git push -u origin master
 
 ### ✅ Part 1 verified
 
-| | |
-|---|---|
-| Repository | [`Glenn-IT/Neko-Sysdev`](https://github.com/Glenn-IT/Neko-Sysdev) (public) |
-| Default branch | `master` |
-| Commit pushed | `7c90809` |
-| Files on GitHub | **60** — matches the 60 tracked locally |
-| `node_modules` / `.next` / `Note.txt` / `.claude` | **none pushed**, as intended |
+|                                                   |                                                                            |
+| ------------------------------------------------- | -------------------------------------------------------------------------- |
+| Repository                                        | [`Glenn-IT/Neko-Sysdev`](https://github.com/Glenn-IT/Neko-Sysdev) (public) |
+| Default branch                                    | `master`                                                                   |
+| Commit pushed                                     | `7c90809`                                                                  |
+| Files on GitHub                                   | **60** — matches the 60 tracked locally                                    |
+| `node_modules` / `.next` / `Note.txt` / `.claude` | **none pushed**, as intended                                               |
 
 The branch is `master` rather than `main`. That is fine and needs no change — GitHub has set it as
 the repository's default branch, so Vercel will build from it automatically.
@@ -79,26 +79,26 @@ the repository's default branch, so Vercel will build from it automatically.
 
 ## Part 2 — Deploy on Vercel
 
-- [ ] Go to [vercel.com](https://vercel.com) → **Sign up with GitHub** (free Hobby plan — no card)
-- [ ] **Add New… → Project**
-- [ ] Find **`Neko-Sysdev`** → **Import**. If it isn't listed, click **Adjust GitHub App Permissions**
+- [x] Go to [vercel.com](https://vercel.com) → **Sign up with GitHub** (free Hobby plan — no card)
+- [x] **Add New… → Project**
+- [x] Find **`Neko-Sysdev`** → **Import**. If it isn't listed, click **Adjust GitHub App Permissions**
       and grant access to the repo
-- [ ] Framework Preset should already read **Next.js**, and Production Branch should read `master`.
+- [x] Framework Preset should already read **Next.js**, and Production Branch should read `master`.
       **Change nothing else** — no build command, no output directory, no environment variables
-- [ ] Click **Deploy** and wait ~2 minutes
-- [ ] Open the `https://neko-sysdev-xxxx.vercel.app` URL it gives you
+- [x] Click **Deploy** and wait ~2 minutes
+- [ ] Open the `https://neko-sysdev.vercel.app/`<---- URL Verccel give me
 
 ### Check the preview URL before touching DNS
 
 Doing this now means any problem shows up while your live domain is still untouched.
 
-- [ ] Homepage loads with the particle background and the purple/navy design
-- [ ] The heading types through "Capstone Systems → Web Applications → …"
-- [ ] Every nav link works: Services, Skills, Projects, About, Contact
-- [ ] "Schedule a Meeting" opens the modal; both copy-email buttons work; **Esc** closes it
-- [ ] Testimonial slider arrows and dots work
-- [ ] Open it on your **phone** — hamburger menu opens, project cards collapse and expand on tap
-- [ ] Add `/sitemap.xml`, `/robots.txt` and `/llms.txt` to the URL — all three load
+- [x] Homepage loads with the particle background and the purple/navy design
+- [x] The heading types through "Capstone Systems → Web Applications → …"
+- [x] Every nav link works: Services, Skills, Projects, About, Contact
+- [x] "Schedule a Meeting" opens the modal; both copy-email buttons work; **Esc** closes it
+- [x] Testimonial slider arrows and dots work
+- [x] Open it on your **phone** — hamburger menu opens, project cards collapse and expand on tap
+- [x] Add `/sitemap.xml`, `/robots.txt` and `/llms.txt` to the URL — all three load
 
 > Do not continue until every box above is ticked.
 
@@ -108,24 +108,52 @@ Doing this now means any problem shows up while your live domain is still untouc
 
 ### 3a. Add the domain in Vercel
 
-- [ ] Vercel → your project → **Settings** → **Domains**
-- [ ] Add `neko-sysdev.online` → **Add**
-- [ ] Add `www.neko-sysdev.online` → **Add** (Vercel redirects www → the main domain automatically)
-- [ ] Vercel now shows the DNS values it wants. **Leave this page open.**
+- [x] Vercel → your project → **Settings** → **Domains**
+- [x] Add `neko-sysdev.online` → **Add**
+- [x] Add `www.neko-sysdev.online` → **Add**
+- [x] Vercel now shows the DNS values it wants. **Leave this page open.**
 
-### 3b. Change the nameservers at Hostinger
+### 3a-bis. ⚠️ Make the apex the Production domain, not `www`
 
+Vercel defaulted to `www` as Production, with the apex 308-redirecting to it. **That is backwards for
+this site.** Every canonical tag, sitemap entry, JSON-LD block and `/llms.txt` line points at the
+apex `https://neko-sysdev.online`. If the apex redirects away, the URL we tell Google is
+authoritative is one that immediately bounces.
+
+- [ ] Settings → Domains → `neko-sysdev.online` → `⋯` menu → **Set as Production Domain**
+- [ ] Confirm the panel now reads `www.neko-sysdev.online → 308 → neko-sysdev.online`
+
+### 3b. Point DNS at Vercel
+
+> **Read this before touching hPanel.** The nameservers are still `ns1–ns5.byet.org` (InfinityFree),
+> so Hostinger's DNS zone editor is **not** authoritative for this domain yet. Adding A/CNAME records
+> there right now would have no effect whatsoever. The nameserver field is what has to change.
+
+**Recommended — hand DNS to Vercel (one change, one wait):**
+
+- [ ] On the Vercel Domains page find the **Nameservers** option (a tab beside "DNS Records", or
+      under the domain's `⋯` menu). Vercel shows two, typically `ns1.vercel-dns.com` and
+      `ns2.vercel-dns.com`
 - [ ] [hpanel.hostinger.com](https://hpanel.hostinger.com) → **Domains** → `neko-sysdev.online` →
-      **Manage**
-- [ ] Find **DNS / Nameservers** → **Change nameservers** → **Use custom nameservers**
-- [ ] Delete all five `ns1.byet.org` … `ns5.byet.org` entries
-- [ ] Enter the **two nameservers Vercel is showing you** (typically `ns1.vercel-dns.com` and
-      `ns2.vercel-dns.com`)
-- [ ] **Save**
+      **Manage** → **DNS / Nameservers** → **Change nameservers** → **Use custom nameservers**
+- [ ] Delete all five `ns1.byet.org` … `ns5.byet.org` entries, enter Vercel's two, **Save**
+- [ ] Vercel then creates the A and CNAME records itself — nothing to type by hand
 
-> ⚠️ **Type the values from Vercel's screen, not from any tutorial — including this one.** Vercel has
-> changed its published IPs and nameservers before. Whatever is on your Domains page right now is the
-> only correct answer.
+**Fallback — keep DNS at Hostinger (two waits):**
+
+- [ ] At Hostinger set the nameservers to Hostinger's own defaults
+      (`ns1.dns-parking.com` / `ns2.dns-parking.com`), then wait for propagation
+- [ ] Then hPanel → **DNS Zone** → delete any existing `@` and `www` records, and add exactly what
+      Vercel displayed for this project:
+
+| Type | Name | Value |
+|---|---|---|
+| `A` | `@` | `216.198.79.1` |
+| `CNAME` | `www` | `769b6c3ba6af59d7.vercel-dns-017.com.` |
+
+> ⚠️ **Use the values on your own Vercel screen, not from any tutorial — including this table.** That
+> CNAME is unique to this project, and Vercel is expanding its IP range (it notes the legacy
+> `76.76.21.21` and `cname.vercel-dns.com` still work, but the values above are the current ones).
 
 - [ ] Wait for propagation — usually **15–60 minutes**, occasionally up to 48 hours. Check with:
 
@@ -133,13 +161,15 @@ Doing this now means any problem shows up while your live domain is still untouc
 nslookup -type=NS neko-sysdev.online
 ```
 
-  When it returns the Vercel nameservers instead of `byet.org`, it has propagated.
+When it returns the Vercel nameservers instead of `byet.org`, it has propagated.
 
 - [ ] Back in Vercel → Settings → Domains, both entries show a green **Valid Configuration**
+      (the "Invalid Configuration" warning you see now is expected until DNS moves)
 - [ ] HTTPS works — Vercel issues the certificate itself, no action needed
 
-**What this changes:** your DNS is now managed at Vercel. If you ever add business email on this
-domain, the MX records go in Vercel's DNS panel, not hPanel. Your Gmail addresses are unaffected.
+**What this changes:** if you took the recommended route, DNS is now managed at Vercel. If you ever
+add business email on this domain, the MX records go in Vercel's DNS panel rather than hPanel. Your
+`@gmail.com` addresses are unaffected either way.
 
 ---
 
@@ -207,7 +237,7 @@ folder.
       → **URL prefix** → `https://neko-sysdev.online`
 - [ ] Choose the **HTML tag** method and copy the `content="..."` value
 - [ ] In Vercel → Settings → **Environment Variables**, add:
-      `GOOGLE_SITE_VERIFICATION` = *that value* → Save
+      `GOOGLE_SITE_VERIFICATION` = _that value_ → Save
 - [ ] Vercel → **Deployments** → ⋯ on the newest → **Redeploy** (the tag only appears after a rebuild)
 - [ ] Back in Search Console → **Verify**
 - [ ] **Sitemaps** → enter `sitemap.xml` → **Submit**
@@ -233,7 +263,7 @@ folder.
 - [ ] [business.google.com](https://business.google.com) → create a profile for
       **NeKo System Developers Team**
 - [ ] Address: Zone 04, Centro Sur, Santo Niño, Cagayan, Philippines 3525
-- [ ] Category: *Software company* / *Website designer*
+- [ ] Category: _Software company_ / _Website designer_
 - [ ] Add the same phone numbers, the website URL, and photos
 - [ ] Complete the postcard/phone verification when it arrives
 
@@ -245,16 +275,16 @@ folder.
 
 ## What to expect afterwards
 
-| When | What happens |
-|---|---|
-| Immediately | Site live on the domain, AI crawlers unblocked |
-| 1–3 days | Google re-crawls; the new pages start appearing |
-| 1–3 weeks | The old single-page result is replaced by your 5 new URLs |
-| 2–6 weeks | Review stars and FAQ rich results may appear in listings |
-| 4–12 weeks | AI assistants pick the site up (they refresh their indexes on their own schedules) |
+| When        | What happens                                                                       |
+| ----------- | ---------------------------------------------------------------------------------- |
+| Immediately | Site live on the domain, AI crawlers unblocked                                     |
+| 1–3 days    | Google re-crawls; the new pages start appearing                                    |
+| 1–3 weeks   | The old single-page result is replaced by your 5 new URLs                          |
+| 2–6 weeks   | Review stars and FAQ rich results may appear in listings                           |
+| 4–12 weeks  | AI assistants pick the site up (they refresh their indexes on their own schedules) |
 
 Search rankings are never instant, and nobody can promise position #1. What this build does is remove
-every technical reason for Google or an AI assistant to *skip* you.
+every technical reason for Google or an AI assistant to _skip_ you.
 
 ---
 
@@ -280,12 +310,12 @@ Always run `npm run build` locally before pushing; if it fails there, it will fa
 
 ## If something goes wrong
 
-| Symptom | Fix |
-|---|---|
-| Push rejected, "updates were rejected" | Remote has commits yours doesn't. `git pull --rebase origin master`, then push again. |
-| Vercel build fails | Open the build log. Run `npm run build` locally — the same error appears with more context. |
-| Domain stuck on "Invalid Configuration" | Nameservers haven't propagated. Check with `nslookup -type=NS neko-sysdev.online` and wait. |
-| Still seeing the old site | Browser or DNS cache. Try a private window, or your phone on mobile data instead of Wi-Fi. |
-| "Not secure" warning | The certificate is still being issued. It resolves itself within about an hour of DNS propagating. |
-| A crawler still returns 403 | Confirm DNS actually moved off `byet.org` — that 403 comes from InfinityFree, not Vercel. |
-| Want to move off Vercel later | Set `NEXT_PUBLIC_SITE_URL` to the new domain. Canonicals, sitemap, JSON-LD and `/llms.txt` all follow it. |
+| Symptom                                 | Fix                                                                                                       |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Push rejected, "updates were rejected"  | Remote has commits yours doesn't. `git pull --rebase origin master`, then push again.                     |
+| Vercel build fails                      | Open the build log. Run `npm run build` locally — the same error appears with more context.               |
+| Domain stuck on "Invalid Configuration" | Nameservers haven't propagated. Check with `nslookup -type=NS neko-sysdev.online` and wait.               |
+| Still seeing the old site               | Browser or DNS cache. Try a private window, or your phone on mobile data instead of Wi-Fi.                |
+| "Not secure" warning                    | The certificate is still being issued. It resolves itself within about an hour of DNS propagating.        |
+| A crawler still returns 403             | Confirm DNS actually moved off `byet.org` — that 403 comes from InfinityFree, not Vercel.                 |
+| Want to move off Vercel later           | Set `NEXT_PUBLIC_SITE_URL` to the new domain. Canonicals, sitemap, JSON-LD and `/llms.txt` all follow it. |
