@@ -43,25 +43,37 @@ ChatGPT, Claude and Perplexity cannot see your site today, and moving hosts is w
 
 ## Part 1 — Push the code to GitHub
 
-- [ ] Sign in to [github.com](https://github.com) as **Glenn-IT**
-- [ ] **New repository** → name `neko-sysdev` → Private or Public → **do NOT** tick "Add a README",
+- [x] Sign in to [github.com](https://github.com) as **Glenn-IT**
+- [x] **New repository** → name `neko-sysdev` → Private or Public → **do NOT** tick "Add a README",
       `.gitignore`, or a licence (the repo already has these; adding them causes a push conflict)
-- [ ] **Create repository**, then copy the HTTPS URL it shows you
-- [ ] Run these in Git Bash (replace the URL if your repo name differs):
+- [x] **Create repository**, then copy the HTTPS URL it shows you
+- [x] Run these in Git Bash:
 
 ```bash
 cd /c/xampp/htdocs/Neko-Sysdev
-git branch -M main
-git remote add origin https://github.com/Glenn-IT/neko-sysdev.git
-git push -u origin main
+git remote add origin https://github.com/Glenn-IT/Neko-Sysdev.git
+git push -u origin master
 ```
 
-- [ ] Refresh GitHub — you should see `app/`, `components/`, `lib/`, `public/` and **no**
+- [x] Refresh GitHub — you should see `app/`, `components/`, `lib/`, `public/` and **no**
       `node_modules` folder
 
 > If the push asks for a password, use a **Personal Access Token**, not your GitHub password:
 > GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new
 > token → tick `repo`. Paste the token as the password.
+
+### ✅ Part 1 verified
+
+| | |
+|---|---|
+| Repository | [`Glenn-IT/Neko-Sysdev`](https://github.com/Glenn-IT/Neko-Sysdev) (public) |
+| Default branch | `master` |
+| Commit pushed | `7c90809` |
+| Files on GitHub | **60** — matches the 60 tracked locally |
+| `node_modules` / `.next` / `Note.txt` / `.claude` | **none pushed**, as intended |
+
+The branch is `master` rather than `main`. That is fine and needs no change — GitHub has set it as
+the repository's default branch, so Vercel will build from it automatically.
 
 ---
 
@@ -69,10 +81,10 @@ git push -u origin main
 
 - [ ] Go to [vercel.com](https://vercel.com) → **Sign up with GitHub** (free Hobby plan — no card)
 - [ ] **Add New… → Project**
-- [ ] Find `neko-sysdev` → **Import**. If it isn't listed, click **Adjust GitHub App Permissions**
+- [ ] Find **`Neko-Sysdev`** → **Import**. If it isn't listed, click **Adjust GitHub App Permissions**
       and grant access to the repo
-- [ ] Framework Preset should already read **Next.js**. **Change nothing else** — no build command,
-      no output directory, no environment variables
+- [ ] Framework Preset should already read **Next.js**, and Production Branch should read `master`.
+      **Change nothing else** — no build command, no output directory, no environment variables
 - [ ] Click **Deploy** and wait ~2 minutes
 - [ ] Open the `https://neko-sysdev-xxxx.vercel.app` URL it gives you
 
@@ -248,7 +260,7 @@ every technical reason for Google or an AI assistant to *skip* you.
 
 ## Making changes later
 
-Vercel redeploys automatically on every push to `main`:
+Vercel redeploys automatically on every push to `master`:
 
 ```bash
 cd /c/xampp/htdocs/Neko-Sysdev
@@ -270,7 +282,7 @@ Always run `npm run build` locally before pushing; if it fails there, it will fa
 
 | Symptom | Fix |
 |---|---|
-| Push rejected, "updates were rejected" | The GitHub repo was created with a README. `git pull --rebase origin main`, then push again. |
+| Push rejected, "updates were rejected" | Remote has commits yours doesn't. `git pull --rebase origin master`, then push again. |
 | Vercel build fails | Open the build log. Run `npm run build` locally — the same error appears with more context. |
 | Domain stuck on "Invalid Configuration" | Nameservers haven't propagated. Check with `nslookup -type=NS neko-sysdev.online` and wait. |
 | Still seeing the old site | Browser or DNS cache. Try a private window, or your phone on mobile data instead of Wi-Fi. |
