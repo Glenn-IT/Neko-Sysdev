@@ -368,7 +368,18 @@ google-site-verification=Iq94DU9pLsY79ObmTHQ3RCgEpE0mCIN1DhvAJOYsKzU
 
 **Now do these two — the property being verified does not by itself submit anything:**
 
-- [ ] **Sitemaps** → enter `sitemap.xml` → **Submit**
+- [ ] **Sitemaps** → enter the **full URL** → **Submit**
+
+```
+https://neko-sysdev.online/sitemap.xml
+```
+
+> ⚠️ Entering just `sitemap.xml` returns **"Invalid sitemap address."** That short form only works on
+> *URL-prefix* properties, which display the domain next to the input box. A **Domain** property spans
+> many hostnames, so there is no prefix to assume and the full URL is required.
+>
+> Verified as Googlebot: `200` · `application/xml` · 905 bytes · well-formed · 5 URLs, all on
+> `https://neko-sysdev.online` · already advertised in `robots.txt`.
 - [ ] **URL Inspection** → for each of `/`, `/services`, `/projects`, `/about`, `/contact` →
       **Request indexing**
 
@@ -489,3 +500,5 @@ Always run `npm run build` locally before pushing; if it fails there, it will fa
 | "Not secure" warning                    | The certificate is still being issued. It resolves itself within about an hour of DNS propagating.        |
 | A crawler still returns 403             | Confirm DNS actually moved off `byet.org` — that 403 comes from InfinityFree, not Vercel.                 |
 | Want to move off Vercel later           | Set `NEXT_PUBLIC_SITE_URL` to the new domain. Canonicals, sitemap, JSON-LD and `/llms.txt` all follow it. |
+| "Invalid sitemap address" in Search Console | You have a Domain property — submit the full `https://neko-sysdev.online/sitemap.xml`, not just `sitemap.xml`. |
+| Search Console shows no data for days   | Normal for a newly crawled domain. Give it 3–7 days before reading anything into the reports. |
