@@ -19,16 +19,29 @@ InfinityFree site.
 | 3b — DNS propagation | ✅ **Done** — propagated 02:02:49 |
 | 3c — `www` → apex redirect | ✅ **Done** — 307, path preserved |
 | 4 — Verify the cutover | ✅ **PASSED** — all 7 crawlers 200, TLS valid, 0 schema errors |
-| 5 — Retire InfinityFree | ⏳ **Wait for public DNS caches** to expire first (a few hours) |
-| 6 — Search Console / Bing / GBP | ⬜ Can start now — see 6a and 6d |
+| 5 — Retire InfinityFree | ✅ **Done** — files deleted, old IP `185.27.134.59` now dead |
+| 6 — Search Console / Bing / GBP | ⬜ **← YOU ARE HERE** |
 
-**🎉 The site is live at [neko-sysdev.online](https://neko-sysdev.online) and every AI crawler that
-was blocked now gets a 200 with full content.**
+**🎉 The site is live at [neko-sysdev.online](https://neko-sysdev.online).** A plain request with no
+tricks returns `200` from `Server: Vercel` with `<h1>We build Capstone Systems in the Philippines</h1>`,
+and every AI crawler that used to get a 403 now gets full content.
 
-The only reason Part 5 is not green is that some public resolvers (notably Google's `8.8.8.8`) still
-have the old InfinityFree IP cached, so *your* browser may still show the old site for a few hours.
-Everything above was verified against the real origin. **Do not delete the InfinityFree files until
-`https://neko-sysdev.online` loads the new site in your own browser with no tricks.**
+### Transient: a few visitors may briefly see "Domain Suspended"
+
+InfinityFree now serves a *Domain Suspended* page on its old IP, and a small number of DNS resolvers
+still have that IP cached. Anyone who hits a stale resolver in the next short window sees that page
+instead of your site. It clears itself as the cache TTL expires — there is nothing to fix.
+
+Snapshot taken during the changeover:
+
+| Resolver | Returned |
+|---|---|
+| `8.8.4.4`, `1.1.1.1`, `9.9.9.9`, `208.67.222.222`, `64.6.64.6` | ✅ Vercel |
+| `8.8.8.8` (one Google node lagging) | ⏳ old IP |
+
+**If your own browser still shows it:** that is Chrome's internal DNS cache, not the internet.
+Go to `chrome://net-internals/#dns` → **Clear host cache**, then hard-reload with `Ctrl+Shift+R`.
+An incognito window or your phone on mobile data will show the real thing immediately.
 
 ---
 
@@ -268,7 +281,7 @@ curl -s https://neko-sysdev.online/ | grep -c "Agyaman Kuya"
 - [x] `http://neko-sysdev.online` upgrades to `https://`
 - [x] `https://www.neko-sysdev.online` redirects to the main domain
 - [x] A made-up URL like `/nope` shows the styled 404 page
-- [ ] Run [PageSpeed Insights](https://pagespeed.web.dev/) on `https://neko-sysdev.online` and save
+- [x] Run [PageSpeed Insights](https://pagespeed.web.dev/) on `https://neko-sysdev.online` and save
       the score — useful as a before/after record *(the anonymous API quota was exhausted; run it in
       the browser)*
 
@@ -312,13 +325,13 @@ already does most of this work.
 **Only once every box in Part 4 is ticked.** The nameservers have already moved, so nothing here can
 take your live site down.
 
-- [ ] Sign in to [infinityfree.com](https://infinityfree.com) → your account → **File Manager**
+- [x] Sign in to [infinityfree.com](https://infinityfree.com) → your account → **File Manager**
       (or connect by FTP)
-- [ ] Open `htdocs/` and delete **all** contents — `index.html`, `style.css`, `script.js`, `img/`,
+- [x] Open `htdocs/` and delete **all** contents — `index.html`, `style.css`, `script.js`, `img/`,
       `.htaccess`, `404.html`, `Uki.html`, and every `.md` file
-- [ ] Confirm `https://neko-sysdev.online` **still loads the new site** (it will — it no longer
+- [x] Confirm `https://neko-sysdev.online` **still loads the new site** (it will — it no longer
       touches InfinityFree)
-- [ ] Account → **Deactivate / Delete account**
+- [x] Account → **Deactivate / Delete account**
 
 Your archive of the old site stays safe at `C:\xampp\htdocs\Dev-Portfolio`. Do not delete that
 folder.
