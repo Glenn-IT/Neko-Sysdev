@@ -346,25 +346,54 @@ folder.
 > apex, `www`, `http` and `https` in one go, and it verifies via a TXT record — which sidesteps the
 > stale A-record caches entirely, so it works before the caches expire.
 >
-> - [ ] Search Console → **Add property** → **Domain** → `neko-sysdev.online`
-> - [ ] Copy the `google-site-verification=…` TXT value it gives you
-> - [ ] Vercel → **Settings → Domains → DNS Records** (Vercel runs your DNS now) → add a `TXT`
->       record on `@` with that value → Save
-> - [ ] Back in Search Console → **Verify**
->
-> If you'd rather use the HTML tag, the steps below still work — but wait until DNS caches have
-> expired everywhere.
+**✅ Taken: the DNS method.** A *Domain* property covers the apex, `www`, `http` and `https` in one,
+and verifying by TXT record sidesteps stale A-record caches entirely.
 
-- [ ] [search.google.com/search-console](https://search.google.com/search-console) → **Add property**
-      → **URL prefix** → `https://neko-sysdev.online`
-- [ ] Choose the **HTML tag** method and copy the `content="..."` value
-- [ ] In Vercel → Settings → **Environment Variables**, add:
-      `GOOGLE_SITE_VERIFICATION` = _that value_ → Save
-- [ ] Vercel → **Deployments** → ⋯ on the newest → **Redeploy** (the tag only appears after a rebuild)
-- [ ] Back in Search Console → **Verify**
+- [x] Search Console → **Add property** → **Domain** → `neko-sysdev.online`
+- [x] Copy the `google-site-verification=…` TXT value it gives you
+- [x] Vercel → **Settings → Domains → DNS Records** → add a `TXT` record with Name left **blank**
+      (blank = the root domain in Vercel) and that value → Save
+- [x] Back in Search Console → **Verify** → **verified ✅**
+
+TXT record confirmed live in public DNS:
+
+```
+google-site-verification=Iq94DU9pLsY79ObmTHQ3RCgEpE0mCIN1DhvAJOYsKzU
+```
+
+> ⚠️ When adding the record, the Vercel form pre-fills `Type: A` / `Value: 76.76.21.21`. That is
+> placeholder text — **do not submit it.** Vercel already routes the apex through Connected Projects,
+> which is why the DNS Records list shows only the three CAA entries and no A record. Adding that A
+> record would break the site.
+
+**Now do these two — the property being verified does not by itself submit anything:**
+
 - [ ] **Sitemaps** → enter `sitemap.xml` → **Submit**
 - [ ] **URL Inspection** → for each of `/`, `/services`, `/projects`, `/about`, `/contact` →
       **Request indexing**
+
+Pre-checked for you — all five URLs in the sitemap return `200` to Googlebot with unique titles:
+
+| URL | Googlebot | Title |
+|---|---|---|
+| `/` | 200 | NeKo-SysDev \| Professional Capstone System Developers Philippines |
+| `/services` | 200 | Capstone & Website Packages — Prices from ₱3,000 |
+| `/projects` | 200 | 31 Capstone Project Ideas — Web & Mobile Systems |
+| `/about` | 200 | About NeKo System Developers Team — Santo Niño, Cagayan |
+| `/contact` | 200 | Contact NeKo-SysDev — Capstone Developers in Santo Niño, Cagayan |
+
+<details>
+<summary>Alternative HTML-tag method (not used — kept for reference)</summary>
+
+The code supports it via an env var, if you ever need it instead of DNS:
+
+- Search Console → Add property → **URL prefix** → `https://neko-sysdev.online`
+- Choose **HTML tag**, copy the `content="..."` value
+- Vercel → Settings → **Environment Variables** → `GOOGLE_SITE_VERIFICATION` = that value → Save
+- Vercel → **Deployments** → ⋯ on the newest → **Redeploy** (the tag only appears after a rebuild)
+- Back in Search Console → **Verify**
+
+</details>
 
 ### 6b. Bing Webmaster Tools
 
