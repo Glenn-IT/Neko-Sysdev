@@ -7,6 +7,26 @@ InfinityFree site.
 
 ---
 
+## Progress
+
+| Part | Status |
+|---|---|
+| 1 — Push to GitHub | ✅ **Done** — `Glenn-IT/Neko-Sysdev`, branch `master`, 60 files, verified via API |
+| 2 — Deploy on Vercel | ✅ **Done** — live at `neko-sysdev.vercel.app`, all crawlers get 200 |
+| 3a — Add domain in Vercel | ✅ **Done** — apex + www added |
+| 3a-bis — Apex as Production | ✅ **Done** — `www → 308 → apex`, matches our canonical tags |
+| 3b — Nameservers at Hostinger | ✅ **Done** — set to `ns1/ns2.vercel-dns.com` |
+| **3b — DNS propagation** | ⏳ **WAITING** — registry still reports `ns1/ns2.infinityfree.com` |
+| 4 — Verify the cutover | ⬜ Blocked on propagation |
+| 5 — Retire InfinityFree | ⬜ **Do not start** until Part 4 passes |
+| 6 — Search Console / Bing / GBP | ⬜ Google Business Profile can be started now — it needs no DNS |
+
+**Nothing left to click until DNS moves.** The one thing you can usefully do meanwhile is start the
+Google Business Profile in Part 6d; its postcard verification takes days, so the clock is worth
+starting early.
+
+---
+
 ## Before you start — what you have right now
 
 |                        |                                                               |
@@ -86,7 +106,7 @@ the repository's default branch, so Vercel will build from it automatically.
 - [x] Framework Preset should already read **Next.js**, and Production Branch should read `master`.
       **Change nothing else** — no build command, no output directory, no environment variables
 - [x] Click **Deploy** and wait ~2 minutes
-- [ ] Open the `https://neko-sysdev.vercel.app/`<---- URL Verccel give me
+- [x] Open the URL Vercel gave you → **`https://neko-sysdev.vercel.app/`**
 
 ### Check the preview URL before touching DNS
 
@@ -101,6 +121,32 @@ Doing this now means any problem shows up while your live domain is still untouc
 - [x] Add `/sitemap.xml`, `/robots.txt` and `/llms.txt` to the URL — all three load
 
 > Do not continue until every box above is ticked.
+
+### ✅ Part 2 verified
+
+Checked against `https://neko-sysdev.vercel.app`:
+
+| Path | Result |
+|---|---|
+| `/` | 200 · 374,694 bytes · `text/html` |
+| `/sitemap.xml` | 200 · 905 bytes · `application/xml` |
+| `/robots.txt` | 200 · 599 bytes · `text/plain` |
+| `/llms.txt` | 200 · 10,835 bytes · `text/plain` |
+
+And the crawler test from Part 4, run early against the Vercel URL — **every one of these was `403`
+on InfinityFree**:
+
+| Crawler | HTTP | Bytes | Found real content |
+|---|---|---|---|
+| GPTBot | **200** | 374,694 | ✅ |
+| ClaudeBot | **200** | 374,694 | ✅ |
+| PerplexityBot | **200** | 374,694 | ✅ |
+| CCBot | **200** | 374,694 | ✅ |
+| meta-externalagent | **200** | 374,694 | ✅ |
+| Googlebot | **200** | 374,694 | ✅ |
+
+All six found the testimonial text `"Agyaman Kuya"` in the raw HTML with JavaScript disabled. The
+blocking problem is already solved on Vercel — it only needs the domain pointed at it.
 
 ---
 
@@ -120,8 +166,8 @@ this site.** Every canonical tag, sitemap entry, JSON-LD block and `/llms.txt` l
 apex `https://neko-sysdev.online`. If the apex redirects away, the URL we tell Google is
 authoritative is one that immediately bounces.
 
-- [ ] Settings → Domains → `neko-sysdev.online` → `⋯` menu → **Set as Production Domain**
-- [ ] Confirm the panel now reads `www.neko-sysdev.online → 308 → neko-sysdev.online`
+- [x] Settings → Domains → `neko-sysdev.online` → `⋯` menu → **Set as Production Domain**
+- [x] Confirm the panel now reads `www.neko-sysdev.online → 308 → neko-sysdev.online`
 
 ### 3b. Point DNS at Vercel
 
@@ -129,22 +175,23 @@ authoritative is one that immediately bounces.
 > so Hostinger's DNS zone editor is **not** authoritative for this domain yet. Adding A/CNAME records
 > there right now would have no effect whatsoever. The nameserver field is what has to change.
 
-**Recommended — hand DNS to Vercel (one change, one wait):**
+**✅ Taken: hand DNS to Vercel (one change, one wait)**
 
-- [ ] On the Vercel Domains page find the **Nameservers** option (a tab beside "DNS Records", or
+- [x] On the Vercel Domains page find the **Nameservers** option (a tab beside "DNS Records", or
       under the domain's `⋯` menu). Vercel shows two, typically `ns1.vercel-dns.com` and
       `ns2.vercel-dns.com`
-- [ ] [hpanel.hostinger.com](https://hpanel.hostinger.com) → **Domains** → `neko-sysdev.online` →
+- [x] [hpanel.hostinger.com](https://hpanel.hostinger.com) → **Domains** → `neko-sysdev.online` →
       **Manage** → **DNS / Nameservers** → **Change nameservers** → **Use custom nameservers**
-- [ ] Delete all five `ns1.byet.org` … `ns5.byet.org` entries, enter Vercel's two, **Save**
-- [ ] Vercel then creates the A and CNAME records itself — nothing to type by hand
+- [x] Delete all five `ns1.byet.org` … `ns5.byet.org` entries, enter Vercel's two, **Save**
+      → saved as `ns1.vercel-dns.com` / `ns2.vercel-dns.com`
+- [x] Vercel then creates the A and CNAME records itself — nothing to type by hand
 
-**Fallback — keep DNS at Hostinger (two waits):**
+**~~Fallback~~ — not needed, kept for reference only:**
 
-- [ ] At Hostinger set the nameservers to Hostinger's own defaults
-      (`ns1.dns-parking.com` / `ns2.dns-parking.com`), then wait for propagation
-- [ ] Then hPanel → **DNS Zone** → delete any existing `@` and `www` records, and add exactly what
-      Vercel displayed for this project:
+- [ ] ~~At Hostinger set the nameservers to Hostinger's own defaults
+      (`ns1.dns-parking.com` / `ns2.dns-parking.com`), then wait for propagation~~
+- [ ] ~~Then hPanel → **DNS Zone** → delete any existing `@` and `www` records, and add exactly what
+      Vercel displayed for this project:~~
 
 | Type | Name | Value |
 |---|---|---|
@@ -155,16 +202,26 @@ authoritative is one that immediately bounces.
 > CNAME is unique to this project, and Vercel is expanding its IP range (it notes the legacy
 > `76.76.21.21` and `cname.vercel-dns.com` still work, but the values above are the current ones).
 
-- [ ] Wait for propagation — usually **15–60 minutes**, occasionally up to 48 hours. Check with:
+- [ ] ⏳ **← YOU ARE HERE.** Wait for propagation — usually **15–60 minutes**, occasionally up to
+      48 hours.
+
+Check it against the `.online` registry directly, which skips every cache and gives the honest
+answer (a plain `nslookup` can return a stale cached result for hours):
 
 ```bash
-nslookup -type=NS neko-sysdev.online
+nslookup -type=NS neko-sysdev.online ns01.trs-dns.com
 ```
 
-When it returns the Vercel nameservers instead of `byet.org`, it has propagated.
+Last checked, the registry still reported the old delegation:
+
+```
+neko-sysdev.online → ns1.infinityfree.com / ns2.infinityfree.com
+```
+
+When it reports `ns1.vercel-dns.com` / `ns2.vercel-dns.com`, propagation is done and Part 4 can run.
 
 - [ ] Back in Vercel → Settings → Domains, both entries show a green **Valid Configuration**
-      (the "Invalid Configuration" warning you see now is expected until DNS moves)
+      (the "Invalid Configuration" warning showing now is expected until DNS moves)
 - [ ] HTTPS works — Vercel issues the certificate itself, no action needed
 
 **What this changes:** if you took the recommended route, DNS is now managed at Vercel. If you ever
