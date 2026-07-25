@@ -9,17 +9,23 @@ export function Testimonials({
   return (
     <section
       id="testimonials"
-      className="relative overflow-hidden bg-base px-[5%] py-20 lg:px-[8%] lg:py-25"
+      className="relative overflow-hidden px-[5%] py-24 lg:px-[8%]"
     >
+      <div
+        aria-hidden="true"
+        className="orb-amethyst pointer-events-none absolute top-1/4 left-[20%] h-80 w-80 rounded-full"
+      />
+
       <SectionHeading
         as={headingLevel}
+        eyebrow="// reviews"
         accent="Clients Say"
         subtitle="Real feedback from students and businesses we've helped"
       >
         What Our
       </SectionHeading>
 
-      <div className="mt-14">
+      <div className="relative z-10 mt-16">
         <TestimonialSlider />
       </div>
     </section>

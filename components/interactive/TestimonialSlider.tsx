@@ -28,6 +28,9 @@ export function TestimonialSlider() {
     return () => clearInterval(timer);
   }, [index, paused, go]);
 
+  const navButton =
+    "glass flex h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-xl text-amethyst-400 transition-all duration-300 hover:-translate-y-1 hover:border-amethyst-500/40 hover:bg-amethyst-500/20 hover:text-white";
+
   return (
     <div
       role="group"
@@ -42,18 +45,18 @@ export function TestimonialSlider() {
         if (event.key === "ArrowRight") go(index + 1);
       }}
     >
-      <div className="mx-auto flex max-w-[900px] items-center gap-4 sm:gap-8">
+      <div className="mx-auto flex max-w-4xl items-center gap-4 sm:gap-8">
         <button
           type="button"
           onClick={() => go(index - 1)}
           aria-label="Previous testimonial"
-          className="gradient-brand flex h-[50px] w-[50px] shrink-0 cursor-pointer items-center justify-center rounded-full text-white shadow-[0_5px_20px_rgba(79,70,229,0.3)] transition-all duration-300 hover:scale-110 hover:shadow-[0_8px_30px_rgba(79,70,229,0.5)]"
+          className={navButton}
         >
-          <Icon name="FaChevronLeft" className="text-[1.2rem]" />
+          <Icon name="FaChevronLeft" />
         </button>
 
         <div
-          className="relative w-full overflow-hidden py-5"
+          className="relative w-full overflow-hidden py-4"
           onTouchStart={(event) => {
             touchStartX.current = event.changedTouches[0].clientX;
           }}
@@ -73,18 +76,23 @@ export function TestimonialSlider() {
                 inert={!active}
                 aria-roledescription="slide"
                 aria-label={`${i + 1} of ${count}`}
-                className={`card-surface rounded-[20px] border border-brand/20 px-6 py-10 shadow-[0_10px_40px_rgba(0,0,0,0.3)] transition-all duration-500 sm:px-10 sm:py-12 ${
+                className={`card-surface rounded-2xl px-6 py-10 transition-all duration-500 sm:px-12 sm:py-12 ${
                   active
                     ? "relative translate-x-0 opacity-100"
-                    : "pointer-events-none absolute inset-x-0 top-5 translate-x-full opacity-0"
+                    : "pointer-events-none absolute inset-x-0 top-4 translate-x-full opacity-0"
                 }`}
               >
-                <div className="mb-6 flex justify-center gap-2">
+                <Icon
+                  name="FaQuoteLeft"
+                  className="mx-auto mb-6 text-3xl text-amethyst-500/30"
+                />
+
+                <div className="mb-6 flex justify-center gap-1.5">
                   {Array.from({ length: testimonial.rating }).map((_, star) => (
                     <Icon
                       key={star}
                       name="FaStar"
-                      className="text-[1.3rem] text-star drop-shadow-[0_2px_8px_rgba(251,191,36,0.4)]"
+                      className="text-star drop-shadow-[0_0_8px_rgba(251,191,36,0.5)]"
                     />
                   ))}
                   <span className="sr-only">
@@ -92,19 +100,17 @@ export function TestimonialSlider() {
                   </span>
                 </div>
 
-                <blockquote className="relative px-5 text-center text-[1.1rem] leading-[1.8] text-nav italic before:absolute before:-top-5 before:-left-2.5 before:font-serif before:text-[4rem] before:text-brand/30 before:content-['“']">
+                <blockquote className="text-center text-lg leading-relaxed text-nav italic sm:text-xl">
                   {testimonial.text}
                 </blockquote>
 
-                <figcaption className="mt-8 flex items-center justify-center gap-5">
-                  <div className="gradient-brand flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-full">
-                    <Icon name="FaUser" className="text-[1.8rem] text-white" />
+                <figcaption className="mt-8 flex items-center justify-center gap-4">
+                  <div className="gradient-brand flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-[0_0_20px_rgba(155,89,182,0.4)]">
+                    <Icon name="FaUser" className="text-xl text-white" />
                   </div>
                   <div className="text-left">
-                    <p className="mb-1 text-[1.2rem] font-semibold text-white">
-                      {testimonial.author}
-                    </p>
-                    <p className="text-[0.95rem] text-muted">
+                    <p className="font-bold text-white">{testimonial.author}</p>
+                    <p className="font-mono text-xs text-muted">
                       {testimonial.role}
                     </p>
                   </div>
@@ -118,13 +124,13 @@ export function TestimonialSlider() {
           type="button"
           onClick={() => go(index + 1)}
           aria-label="Next testimonial"
-          className="gradient-brand flex h-[50px] w-[50px] shrink-0 cursor-pointer items-center justify-center rounded-full text-white shadow-[0_5px_20px_rgba(79,70,229,0.3)] transition-all duration-300 hover:scale-110 hover:shadow-[0_8px_30px_rgba(79,70,229,0.5)]"
+          className={navButton}
         >
-          <Icon name="FaChevronRight" className="text-[1.2rem]" />
+          <Icon name="FaChevronRight" />
         </button>
       </div>
 
-      <div className="mt-10 flex justify-center gap-3">
+      <div className="mt-10 flex justify-center gap-2.5">
         {testimonials.map((testimonial, i) => (
           <button
             key={testimonial.id}
@@ -132,10 +138,10 @@ export function TestimonialSlider() {
             onClick={() => go(i)}
             aria-label={`Show testimonial ${i + 1}`}
             aria-current={i === index}
-            className={`h-3 cursor-pointer rounded-full transition-all duration-300 ${
+            className={`h-2.5 cursor-pointer rounded-full transition-all duration-300 ${
               i === index
-                ? "gradient-brand w-[35px] rounded-[10px]"
-                : "w-3 bg-brand/30 hover:bg-brand/60"
+                ? "gradient-brand w-8"
+                : "w-2.5 bg-white/15 hover:bg-amethyst-500/60"
             }`}
           />
         ))}

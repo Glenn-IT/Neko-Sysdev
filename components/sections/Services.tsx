@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/effects/Reveal";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { formatPeso, services } from "@/lib/content/services";
@@ -12,73 +13,78 @@ export function Services({
   return (
     <section
       id="services"
-      className="relative bg-[linear-gradient(135deg,#0f0f0f_0%,#1a1a2e_100%)] px-[5%] py-20 lg:px-[8%] lg:py-25"
+      className="relative overflow-hidden px-[5%] py-24 lg:px-[8%]"
     >
-      <div className="glow-services pointer-events-none absolute inset-0" />
+      <div
+        aria-hidden="true"
+        className="orb-amethyst pointer-events-none absolute top-0 left-[20%] h-80 w-80 rounded-full"
+      />
 
       <SectionHeading
         as={headingLevel}
+        eyebrow="// packages"
         accent="Offer"
         subtitle="Tailored solutions for every need and budget"
       >
         What We
       </SectionHeading>
 
-      <div className="relative z-10 mt-14 grid gap-9 lg:grid-cols-3">
-        {services.map((service) => (
-          <article
-            key={service.id}
-            className={`top-bar card-surface flex flex-col rounded-2xl p-10 transition-all duration-300 hover:-translate-y-2.5 hover:border-brand/40 hover:shadow-[0_15px_40px_rgba(79,70,229,0.3)] ${
-              service.featured
-                ? "border-2 border-brand/40 shadow-[0_10px_30px_rgba(79,70,229,0.2)]"
-                : "border border-brand/10"
-            }`}
-          >
-            {service.badge ? (
-              <span className="gradient-brand absolute top-4 right-4 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold tracking-[0.5px] text-white">
-                {service.badge}
-              </span>
-            ) : null}
+      <div className="relative z-10 mx-auto mt-16 grid max-w-7xl gap-8 lg:grid-cols-3">
+        {services.map((service, i) => (
+          <Reveal key={service.id} delay={i * 90} className="h-full">
+            <article
+              className={`card-surface card-hover top-bar group relative flex h-full flex-col rounded-2xl p-8 ${
+                service.featured
+                  ? "border-amethyst-500/40 shadow-[0_0_30px_rgba(155,89,182,0.15)]"
+                  : ""
+              }`}
+            >
+              {service.badge ? (
+                <span className="gradient-brand absolute top-4 right-4 z-10 rounded-lg px-2.5 py-1 text-xs font-bold text-white backdrop-blur-sm">
+                  ⭐ {service.badge}
+                </span>
+              ) : null}
 
-            <div className="mb-6 flex h-[70px] w-[70px] items-center justify-center rounded-xl bg-[linear-gradient(135deg,rgba(79,70,229,0.15)_0%,rgba(124,58,237,0.15)_100%)] transition-all duration-300">
-              <Icon name={service.icon} className="text-[2rem] text-brand" />
-            </div>
+              <div className="gradient-cool mb-6 flex h-14 w-14 items-center justify-center rounded-xl shadow-[0_0_20px_rgba(106,90,205,0.35)] transition-transform duration-300 group-hover:scale-110">
+                <Icon name={service.icon} className="text-2xl text-white" />
+              </div>
 
-            <CardTitle className="mb-5 text-[1.5rem] leading-[1.3] font-semibold text-white">
-              {service.title}
-            </CardTitle>
+              <CardTitle className="mb-5 text-xl leading-tight font-bold text-white transition-colors duration-300 group-hover:text-amethyst-300">
+                {service.title}
+              </CardTitle>
 
-            <ul className="mb-6 space-y-3">
-              {service.features.map((feature) => (
-                <li
-                  key={feature}
-                  className="flex items-start gap-3 text-[0.95rem] leading-[1.8] text-nav"
-                >
-                  <Icon
-                    name="FaCheck"
-                    className="mt-1.5 shrink-0 text-[0.9rem] text-accent"
-                  />
-                  {feature}
-                </li>
-              ))}
-            </ul>
+              <ul className="mb-6 space-y-3">
+                {service.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-start gap-3 text-sm leading-relaxed text-nav"
+                  >
+                    <Icon
+                      name="FaCheck"
+                      className="mt-1 shrink-0 text-xs text-amethyst-400"
+                    />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
 
-            <p className="mb-5 rounded-lg border-l-[3px] border-brand bg-brand/5 p-4 text-[0.9rem] leading-[1.6] text-muted">
-              <strong className="font-semibold text-accent">
-                {service.note.label}
-              </strong>{" "}
-              {service.note.text}
-            </p>
+              <p className="mb-6 rounded-xl border border-amethyst-500/15 bg-white/[0.03] p-4 text-sm leading-relaxed text-muted">
+                <strong className="font-semibold text-amethyst-300">
+                  {service.note.label}
+                </strong>{" "}
+                {service.note.text}
+              </p>
 
-            <p className="mt-auto rounded-[10px] border-2 border-brand/30 bg-[linear-gradient(135deg,rgba(79,70,229,0.1)_0%,rgba(124,58,237,0.1)_100%)] p-4 text-center transition-all duration-300">
-              <span className="block text-[0.75rem] font-medium tracking-[1px] text-muted uppercase">
-                {service.priceLabel}
-              </span>
-              <span className="text-gradient block text-[1.8rem] leading-none font-bold">
-                {formatPeso(service.price)}
-              </span>
-            </p>
-          </article>
+              <p className="mt-auto rounded-xl border border-amethyst-500/25 bg-amethyst-500/[0.07] p-4 text-center transition-all duration-300 group-hover:border-amethyst-500/50">
+                <span className="block font-mono text-[0.7rem] tracking-[0.15em] text-muted uppercase">
+                  {service.priceLabel}
+                </span>
+                <span className="text-gradient block text-3xl leading-tight font-extrabold">
+                  {formatPeso(service.price)}
+                </span>
+              </p>
+            </article>
+          </Reveal>
         ))}
       </div>
     </section>

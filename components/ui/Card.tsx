@@ -1,8 +1,8 @@
 import type { ElementType, ReactNode } from "react";
 
 /**
- * The shared card surface used across every section: 135° indigo-navy gradient,
- * 16px radius, faint indigo border that brightens on hover.
+ * The shared glass panel used across every section: translucent navy gradient,
+ * faint amethyst edge, lifting on hover with an amethyst glow.
  */
 export function Card({
   as: Tag = "div" as ElementType,
@@ -14,9 +14,7 @@ export function Card({
   children: ReactNode;
 }) {
   return (
-    <Tag
-      className={`card-surface rounded-2xl border border-brand/10 transition-all duration-300 ${className}`}
-    >
+    <Tag className={`card-surface card-hover rounded-2xl ${className}`}>
       {children}
     </Tag>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Icon } from "@/components/ui/Icon";
 import type { Project } from "@/lib/content/projects";
 
 /**
@@ -11,13 +12,13 @@ import type { Project } from "@/lib/content/projects";
  */
 export function ProjectAccordion({
   projects,
-  headingLevel = "h3",
+  category,
 }: {
   projects: Project[];
-  headingLevel?: "h2" | "h3";
+  /** Mono pill shown on each card, e.g. "Web System". */
+  category: string;
 }) {
   const [collapsible, setCollapsible] = useState(false);
-  const Title = headingLevel;
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 768px)");
@@ -28,36 +29,49 @@ export function ProjectAccordion({
   }, []);
 
   return (
-    <div className="grid gap-9 sm:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
       {projects.map((project) => (
         <details
           key={project.title}
           open={!collapsible}
-          className="top-bar card-surface rounded-2xl border border-brand/10 p-7 text-left shadow-[0_8px_25px_rgba(0,0,0,0.3)] transition-all duration-300 hover:-translate-y-2.5 hover:border-brand/30 hover:shadow-[0_15px_40px_rgba(79,70,229,0.25)]"
+          className="card-surface card-hover top-bar group rounded-2xl p-6 text-left"
         >
           <summary
-            className={`list-none text-[1.3rem] leading-[1.4] font-semibold text-white [&::-webkit-details-marker]:hidden ${
+            className={`list-none [&::-webkit-details-marker]:hidden ${
               collapsible ? "cursor-pointer" : "cursor-default"
             }`}
           >
-            <Title className="inline">{project.title}</Title>
+            <span className="mb-3 inline-block rounded-md border border-amethyst-500/20 bg-amethyst-500/10 px-2 py-0.5 font-mono text-xs text-amethyst-400">
+              {category}
+            </span>
+            <span className="flex items-start justify-between gap-3">
+              <h3 className="text-lg leading-tight font-bold text-white transition-colors duration-300 group-hover:text-amethyst-300">
+                {project.title}
+              </h3>
+              {collapsible ? (
+                <Icon
+                  name="FaChevronDown"
+                  className="mt-1 shrink-0 text-sm text-amethyst-400 transition-transform duration-300 group-open:rotate-180"
+                />
+              ) : null}
+            </span>
           </summary>
 
           <div className="mt-4">
             {project.summary ? (
-              <p className="mb-2 text-[0.95rem] leading-[1.7] text-muted">
+              <p className="mb-4 text-sm leading-relaxed text-muted">
                 {project.summary}
               </p>
             ) : null}
 
-            <p className="mt-4 mb-2 block font-semibold text-accent">
+            <p className="mb-2 font-mono text-xs tracking-widest text-amethyst-400 uppercase">
               Technologies:
             </p>
-            <ul>
+            <ul className="flex flex-wrap gap-1.5">
               {project.tech.map((line) => (
                 <li
                   key={line}
-                  className="mb-2 text-[0.95rem] leading-[1.7] text-muted"
+                  className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-1 text-xs text-nav"
                 >
                   {line}
                 </li>

@@ -5,8 +5,11 @@ The NeKo System Developers Team website — rebuilt from the original static sit
 for search engines and AI crawlers, and deployed on **Vercel** at
 [neko-sysdev.online](https://neko-sysdev.online).
 
-All copy, pricing, project lists, and the exact colour palette carry over from the
-original site unchanged.
+All copy, pricing, and project lists carry over from the original site unchanged.
+The visual design follows the futuristic language of
+[Glenn_Portfolio](https://glenn-it.github.io/Glenn_Portfolio/): deep navy-purple
+base, glassmorphic cards, amethyst → slate blue → Klein blue gradients, an animated
+particle field, and scroll reveals.
 
 ## Local development
 
@@ -38,7 +41,9 @@ components/
   layout/               Header (client) · Footer · FloatingContact
   sections/             Hero · Services · WhyChooseUs · HowWeWork · Testimonials ·
                         Skills · Projects · Contact
-  interactive/          TestimonialSlider · ScheduleModal · ProjectAccordion (client)
+  interactive/          TestimonialSlider · ScheduleModal · ProjectAccordion ·
+                        TypingHeadline (client)
+  effects/              ParticleBackground · Reveal · ScrollToTop (client)
   ui/                   SectionHeading · Card · GradientButton · Icon · JsonLd
 lib/
   content/              all copy, typed — single source of truth
@@ -59,11 +64,23 @@ change is a one-line edit that updates the page, the JSON-LD, and `/llms.txt` at
 | No `<h1>` anywhere on the page | One `<h1>` per route, starting with a real hero |
 | One indexable URL, sitemap of `#fragments` | 5 indexable routes in `sitemap.xml` |
 | No structured data | `ProfessionalService`, `WebSite`, `OfferCatalog`, `Review` + `AggregateRating`, `ItemList`, `Person`, `FAQPage`, `BreadcrumbList` |
-| Poppins + Font Awesome from two CDNs | Both self-hosted at build time |
+| Fonts + Font Awesome from two CDNs | Inter, JetBrains Mono and the icons all self-hosted at build time |
 | 989 KB `Lucky1.png` | 19 KB WebP, served through `next/image` |
 | `og:image` pointed at a missing file | Generated 1200×630 card |
 | Nothing addressed AI crawlers | `robots.txt` names GPTBot, ClaudeBot, PerplexityBot, CCBot and others; `/llms.txt` summarises the business |
 | `.htaccess` security headers (Apache only) | `vercel.json` headers, which actually apply on Vercel |
+
+## Motion and no-JS behaviour
+
+Two rules the effects follow, because this is a site that has to rank:
+
+- **Nothing is hidden before JavaScript runs.** `Reveal` applies its hidden state on
+  mount, never during server rendering, so the HTML a crawler fetches has no
+  `opacity: 0` anywhere. Same for the typing headline — the `<h1>` ships complete
+  ("We build Capstone Systems in the Philippines") and only then starts cycling.
+- **Motion is opt-out-able.** The particle canvas is skipped entirely under
+  `prefers-reduced-motion`, pauses while the tab is hidden, and drops to 25 particles
+  below 768px. Reveals and the typing effect respect the same media query.
 
 ## Deploying to Vercel
 

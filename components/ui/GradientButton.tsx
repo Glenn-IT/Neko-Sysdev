@@ -2,14 +2,16 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
 const base =
-  "inline-flex items-center justify-center gap-3 rounded-lg px-8 py-3.5 text-[0.95rem] font-semibold transition-all duration-300";
+  "inline-flex items-center justify-center gap-2 rounded-xl px-8 py-4 font-semibold transition-all duration-300 active:scale-95";
 
 const variants = {
   solid:
-    "gradient-brand text-white shadow-[0_4px_15px_rgba(79,70,229,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(79,70,229,0.4)]",
+    "gradient-brand text-white shadow-[0_0_20px_rgba(155,89,182,0.4)] hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(155,89,182,0.3)]",
   outline:
-    "border-2 border-brand text-brand hover:-translate-y-0.5 hover:bg-brand hover:text-white",
-  pill: "gradient-brand rounded-full px-10 py-4 text-[1.1rem] text-white shadow-[0_10px_30px_rgba(79,70,229,0.4)] hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(79,70,229,0.6)]",
+    "border border-amethyst-500/40 bg-amethyst-500/10 text-white hover:-translate-y-1 hover:border-amethyst-400 hover:bg-amethyst-500/20",
+  ghost:
+    "border border-klein-500/40 bg-klein-500/10 text-klein-300 hover:-translate-y-1 hover:border-klein-400 hover:bg-klein-500/20",
+  pill: "gradient-brand rounded-full px-10 py-4 text-[1.05rem] text-white shadow-[0_0_20px_rgba(155,89,182,0.4)] hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(155,89,182,0.4)]",
 } as const;
 
 type Variant = keyof typeof variants;

@@ -24,19 +24,21 @@ export default function ProjectsPage() {
     <>
       <Projects headingLevel="h1" />
 
-      <section className="bg-base px-[5%] py-16 text-center lg:px-[8%]">
-        <h2 className="text-2xl font-semibold text-white">
-          Have a different system in mind?
-        </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-muted">
-          These are the systems we have built most often — but we take on new
-          ideas too. Send us your topic and we&apos;ll scope it with you.
-        </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-5">
-          <GradientLink href="/contact">Discuss Your Idea</GradientLink>
-          <GradientLink href="/services" variant="outline">
-            See Package Prices
-          </GradientLink>
+      <section className="relative px-[5%] pb-24 text-center lg:px-[8%]">
+        <div className="card-surface mx-auto max-w-3xl rounded-2xl border-amethyst-500/25 p-10">
+          <h2 className="text-2xl font-bold text-white">
+            Have a different system in mind?
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-muted">
+            These are the systems we have built most often — but we take on new
+            ideas too. Send us your topic and we&apos;ll scope it with you.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <GradientLink href="/contact">Discuss Your Idea</GradientLink>
+            <GradientLink href="/services" variant="outline">
+              See Package Prices
+            </GradientLink>
+          </div>
         </div>
       </section>
 

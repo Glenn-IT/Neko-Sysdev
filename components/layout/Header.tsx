@@ -9,46 +9,71 @@ import { navLinks } from "@/lib/content/siteConfig";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Close the mobile menu whenever the route changes.
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-[1000] border-b border-white/10 bg-[rgba(10,10,10,0.95)] backdrop-blur-[10px] transition-all duration-300 hover:shadow-[0_5px_20px_rgba(0,0,0,0.5)]">
-      <div className="flex items-center justify-between px-[5%] py-4 lg:px-[8%] lg:py-5">
-        <Link
-          href="/"
-          className="group flex items-center gap-3 text-[1.4rem] font-semibold tracking-[1px] text-white lg:text-[1.6rem]"
-        >
-          <Image
-            src="/img/neko-header.png"
-            alt="NeKo-SysDev logo"
-            width={45}
-            height={45}
-            priority
-            className="h-[38px] w-auto object-contain transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[5deg] lg:h-[45px]"
-          />
-          <span>
-            Ne<span className="font-bold text-brand">Ko-SysDev</span>
+    <header
+      className={`fixed inset-x-0 top-0 z-[1000] transition-all duration-300 ${
+        scrolled
+          ? "border-b border-white/10 bg-[rgba(10,10,26,0.85)] backdrop-blur-xl"
+          : "border-b border-transparent bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-[5%] py-4 lg:px-6">
+        <Link href="/" className="group flex items-center gap-3">
+          <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-amethyst-500/30 bg-amethyst-500/10 transition-all duration-300 group-hover:border-amethyst-400 group-hover:shadow-[0_0_20px_rgba(155,89,182,0.4)]">
+            <Image
+              src="/img/neko-header.png"
+              alt=""
+              width={40}
+              height={40}
+              priority
+              className="h-7 w-7 object-contain transition-transform duration-300 group-hover:scale-110"
+            />
+          </span>
+          <span className="text-xl font-bold tracking-tight text-white">
+            Ne<span className="text-gradient">Ko-SysDev</span>
           </span>
         </Link>
 
         <nav aria-label="Main">
-          <ul className="hidden items-center md:flex">
-            {navLinks.map((link) => (
-              <li key={link.href} className="mx-4 lg:mx-5">
-                <Link
-                  href={link.href}
-                  aria-current={pathname === link.href ? "page" : undefined}
-                  className="relative text-[0.95rem] font-medium text-nav transition-colors duration-300 after:absolute after:-bottom-[5px] after:left-0 after:h-0.5 after:w-0 after:bg-brand after:transition-[width] after:duration-300 hover:text-white hover:after:w-full aria-[current=page]:text-white aria-[current=page]:after:w-full"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+          <ul className="hidden items-center gap-1 md:flex">
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`relative rounded-lg px-4 py-2 text-sm font-medium tracking-wide transition-colors duration-200 ${
+                      active
+                        ? "text-amethyst-400"
+                        : "text-nav hover:text-amethyst-400"
+                    }`}
+                  >
+                    {link.label}
+                    <span
+                      aria-hidden="true"
+                      className={`gradient-brand absolute inset-x-4 -bottom-0.5 h-0.5 rounded-full transition-transform duration-300 ${
+                        active ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           <button
@@ -57,23 +82,23 @@ export function Header() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="cursor-pointer p-1 text-2xl text-white md:hidden"
+            className="glass cursor-pointer rounded-xl p-2.5 text-xl text-white md:hidden"
           >
             <Icon name={open ? "FaTimes" : "FaBars"} />
           </button>
         </nav>
       </div>
 
-      {/* Mobile menu. Kept in the DOM and hidden with `hidden` so crawlers still read the links. */}
+      {/* Mobile menu — kept in the DOM so crawlers still read the links. */}
       <ul
         id="mobile-menu"
-        className={`${open ? "flex" : "hidden"} flex-col gap-1 border-t border-white/10 bg-base px-[5%] pb-5 md:hidden`}
+        className={`${open ? "flex" : "hidden"} flex-col gap-1 border-t border-white/10 bg-[rgba(10,10,26,0.95)] px-[5%] pb-5 backdrop-blur-xl md:hidden`}
       >
         {navLinks.map((link) => (
           <li key={link.href}>
             <Link
               href={link.href}
-              className="block py-3 text-nav transition-colors duration-300 hover:text-white"
+              className="block rounded-lg px-2 py-3 text-nav transition-colors duration-200 hover:bg-amethyst-500/10 hover:text-amethyst-400"
             >
               {link.label}
             </Link>

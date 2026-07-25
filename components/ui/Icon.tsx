@@ -1,7 +1,10 @@
 import type { ComponentType, SVGProps } from "react";
 import {
   FaAndroid,
+  FaArrowRight,
+  FaArrowUp,
   FaBars,
+  FaBolt,
   FaBookOpen,
   FaBootstrap,
   FaBriefcase,
@@ -10,6 +13,7 @@ import {
   FaChalkboardTeacher,
   FaChartLine,
   FaCheck,
+  FaChevronDown,
   FaChevronLeft,
   FaChevronRight,
   FaCode,
@@ -41,6 +45,7 @@ import {
   FaMobileAlt,
   FaPhoneAlt,
   FaPhp,
+  FaQuoteLeft,
   FaRocket,
   FaServer,
   FaStar,
@@ -60,7 +65,10 @@ import {
  */
 const icons = {
   FaAndroid,
+  FaArrowRight,
+  FaArrowUp,
   FaBars,
+  FaBolt,
   FaBookOpen,
   FaBootstrap,
   FaBriefcase,
@@ -69,6 +77,7 @@ const icons = {
   FaChalkboardTeacher,
   FaChartLine,
   FaCheck,
+  FaChevronDown,
   FaChevronLeft,
   FaChevronRight,
   FaCode,
@@ -100,6 +109,7 @@ const icons = {
   FaMobileAlt,
   FaPhoneAlt,
   FaPhp,
+  FaQuoteLeft,
   FaRocket,
   FaServer,
   FaStar,

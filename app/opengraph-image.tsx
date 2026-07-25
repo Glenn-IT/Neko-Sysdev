@@ -20,7 +20,7 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%)",
+          background: "linear-gradient(135deg, #0a0a1a 0%, #0d0d28 50%, #131340 100%)",
           color: "#ffffff",
           fontFamily: "sans-serif",
         }}
@@ -39,11 +39,11 @@ export default function OpenGraphImage() {
               width: 18,
               height: 64,
               borderRadius: 9,
-              background: "linear-gradient(180deg, #4f46e5, #7c3aed)",
+              background: "linear-gradient(180deg, #9b59b6, #002fa7)",
             }}
           />
           <span>
-            Ne<span style={{ color: "#4f46e5" }}>Ko-SysDev</span>
+            Ne<span style={{ color: "#a78bfa" }}>Ko-SysDev</span>
           </span>
         </div>
 
@@ -71,8 +71,8 @@ export default function OpenGraphImage() {
                 style={{
                   padding: "12px 24px",
                   borderRadius: 999,
-                  border: "2px solid rgba(79,70,229,0.5)",
-                  color: "#c7d2fe",
+                  border: "2px solid rgba(155,89,182,0.5)",
+                  color: "#c4b5fd",
                 }}
               >
                 {chip}

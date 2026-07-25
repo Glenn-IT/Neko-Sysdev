@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/effects/Reveal";
 import { ScheduleModal } from "@/components/interactive/ScheduleModal";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -10,7 +11,7 @@ import {
 
 function SubHeading({ children }: { children: string }) {
   return (
-    <h3 className="relative mb-10 text-center text-[1.6rem] font-semibold text-white after:mx-auto after:mt-4 after:block after:h-1 after:w-20 after:rounded-sm after:bg-[linear-gradient(135deg,#4f46e5_0%,#7c3aed_100%)] lg:text-[2rem]">
+    <h3 className="mb-10 text-center text-2xl font-bold text-white after:mx-auto after:mt-4 after:block after:h-[3px] after:w-16 after:rounded-full after:bg-[linear-gradient(135deg,#9b59b6,#6a5acd)] lg:text-3xl">
       {children}
     </h3>
   );
@@ -24,100 +25,97 @@ export function HowWeWork({
   return (
     <section
       id="how-we-work"
-      className="relative overflow-hidden bg-[linear-gradient(135deg,#0f0f1a_0%,#1a1a2e_100%)] px-[5%] py-20 lg:px-[8%] lg:py-25"
+      className="relative overflow-hidden px-[5%] py-24 lg:px-[8%]"
     >
-      <div className="glow-left pointer-events-none absolute inset-0" />
+      <div
+        aria-hidden="true"
+        className="orb-slateblue pointer-events-none absolute top-1/4 left-[10%] h-[500px] w-[500px] rounded-full"
+      />
 
       <SectionHeading
         as={headingLevel}
+        eyebrow="// process"
         accent="Work With You"
         subtitle="Seamless collaboration through every step of your project"
       >
         How We
       </SectionHeading>
 
-      <div className="relative z-10 mt-14">
-        <div className="card-surface-alt mx-auto mb-16 max-w-3xl rounded-[20px] border-2 border-brand/30 p-10 text-center transition-all duration-[400ms] hover:-translate-y-1 hover:border-brand/60 hover:shadow-[0_20px_50px_rgba(79,70,229,0.3)]">
-          <div className="gradient-brand mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full shadow-[0_10px_30px_rgba(79,70,229,0.4)]">
-            <Icon
-              name={processIntro.icon}
-              className="text-[2.5rem] text-white"
-            />
+      <div className="relative z-10 mx-auto mt-16 max-w-7xl">
+        <Reveal>
+          <div className="card-surface mx-auto mb-20 max-w-3xl rounded-2xl border-amethyst-500/25 p-10 text-center transition-all duration-300 hover:-translate-y-1 hover:border-amethyst-500/50 hover:shadow-[0_20px_60px_rgba(155,89,182,0.3)]">
+            <div className="gradient-brand mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl shadow-[0_0_20px_rgba(155,89,182,0.4)]">
+              <Icon name={processIntro.icon} className="text-2xl text-white" />
+            </div>
+            <h3 className="mb-4 text-2xl font-bold text-white lg:text-3xl">
+              {processIntro.title}
+            </h3>
+            <p className="leading-relaxed text-nav">{processIntro.text}</p>
           </div>
-          <h3 className="mb-4 text-[1.6rem] font-semibold text-white lg:text-[2rem]">
-            {processIntro.title}
-          </h3>
-          <p className="text-[1.05rem] leading-[1.8] text-nav">
-            {processIntro.text}
-          </p>
-        </div>
+        </Reveal>
 
         <div className="mb-20">
           <SubHeading>Meeting &amp; Discussion Options</SubHeading>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {meetingOptions.map((option) => (
-              <article
-                key={option.title}
-                className="shine card-surface-alt group rounded-2xl border-2 border-brand/20 px-6 py-9 text-center transition-all duration-[400ms] hover:-translate-y-2.5 hover:border-brand/60 hover:shadow-[0_15px_40px_rgba(79,70,229,0.3)]"
-              >
-                <div className="mx-auto mb-5 flex h-[70px] w-[70px] items-center justify-center rounded-full bg-brand/20 transition-all duration-[400ms] group-hover:scale-110 group-hover:rotate-[5deg] group-hover:bg-[linear-gradient(135deg,#4f46e5_0%,#7c3aed_100%)]">
-                  <Icon
-                    name={option.icon}
-                    className="text-[2rem] text-accent transition-colors duration-[400ms] group-hover:text-white"
-                  />
-                </div>
-                <h4 className="mb-3 text-[1.4rem] font-semibold text-white">
-                  {option.title}
-                </h4>
-                <p className="text-[0.95rem] leading-[1.6] text-muted">
-                  {option.text}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-16">
-          <SubHeading>What We Provide</SubHeading>
-          <div className="grid gap-6 lg:grid-cols-2">
-            {providedFeatures.map((feature) => (
-              <article
-                key={feature.title}
-                className="card-surface-alt group flex items-start gap-5 rounded-xl border border-brand/20 p-6 transition-all duration-300 hover:translate-x-1.5 hover:border-brand/50 hover:shadow-[0_10px_30px_rgba(79,70,229,0.2)]"
-              >
-                <div className="flex h-[50px] w-[50px] shrink-0 items-center justify-center rounded-[10px] bg-brand/15 transition-all duration-300 group-hover:scale-110 group-hover:bg-[linear-gradient(135deg,#4f46e5_0%,#7c3aed_100%)]">
-                  <Icon
-                    name={feature.icon}
-                    className="text-[1.5rem] text-accent transition-colors duration-300 group-hover:text-white"
-                  />
-                </div>
-                <div>
-                  <h4 className="mb-2 text-[1.2rem] font-semibold text-white">
-                    {feature.title}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {meetingOptions.map((option, i) => (
+              <Reveal key={option.title} delay={i * 80} className="h-full">
+                <article className="card-surface card-hover shine group h-full rounded-2xl p-7 text-center">
+                  <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-xl border border-amethyst-500/20 bg-amethyst-500/15 transition-all duration-300 group-hover:scale-110 group-hover:border-transparent group-hover:bg-[linear-gradient(135deg,#9b59b6,#6a5acd)]">
+                    <Icon
+                      name={option.icon}
+                      className="text-xl text-amethyst-400 transition-colors duration-300 group-hover:text-white"
+                    />
+                  </div>
+                  <h4 className="mb-3 text-lg font-bold text-white">
+                    {option.title}
                   </h4>
-                  <p className="text-[0.95rem] leading-[1.6] text-muted">
-                    {feature.text}
+                  <p className="text-sm leading-relaxed text-muted">
+                    {option.text}
                   </p>
-                </div>
-              </article>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
 
-        <div className="mt-14 text-center">
-          <div className="relative mx-auto max-w-2xl overflow-hidden rounded-[20px] border-2 border-brand/40 bg-[linear-gradient(135deg,rgba(79,70,229,0.2)_0%,rgba(124,58,237,0.2)_100%)] px-10 py-12">
-            <div className="animate-glow-pulse pointer-events-none absolute -top-1/2 -left-1/2 h-[200%] w-[200%] bg-[radial-gradient(circle,rgba(124,58,237,0.1)_0%,transparent_70%)]" />
-            <h3 className="relative z-10 mb-4 text-[1.6rem] font-bold text-white lg:text-[2rem]">
+        <div className="mb-20">
+          <SubHeading>What We Provide</SubHeading>
+          <div className="grid gap-5 lg:grid-cols-2">
+            {providedFeatures.map((feature, i) => (
+              <Reveal key={feature.title} delay={i * 70} className="h-full">
+                <article className="card-surface group flex h-full items-start gap-5 rounded-2xl p-6 transition-all duration-300 hover:translate-x-1.5 hover:border-amethyst-500/35 hover:shadow-[0_10px_40px_rgba(155,89,182,0.2)]">
+                  <div className="gradient-cool flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
+                    <Icon name={feature.icon} className="text-lg text-white" />
+                  </div>
+                  <div>
+                    <h4 className="mb-2 text-lg font-bold text-white">
+                      {feature.title}
+                    </h4>
+                    <p className="text-sm leading-relaxed text-muted">
+                      {feature.text}
+                    </p>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        <Reveal>
+          <div className="relative mx-auto max-w-2xl overflow-hidden rounded-2xl border border-amethyst-500/30 bg-[linear-gradient(135deg,rgba(155,89,182,0.16)_0%,rgba(0,47,167,0.16)_100%)] px-10 py-12 text-center backdrop-blur-sm">
+            <div
+              aria-hidden="true"
+              className="orb-amethyst pointer-events-none absolute -top-20 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full"
+            />
+            <h3 className="relative z-10 mb-4 text-2xl font-bold text-white lg:text-3xl">
               {workCta.title}
             </h3>
-            <p className="relative z-10 mb-8 text-[1.1rem] text-nav">
-              {workCta.text}
-            </p>
+            <p className="relative z-10 mb-8 text-nav">{workCta.text}</p>
             <div className="relative z-10">
               <ScheduleModal />
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
