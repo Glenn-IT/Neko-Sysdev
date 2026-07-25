@@ -9,18 +9,18 @@ InfinityFree site.
 
 ## Progress
 
-| Part | Status |
-|---|---|
-| 1 — Push to GitHub | ✅ **Done** — `Glenn-IT/Neko-Sysdev`, branch `master`, 60 files, verified via API |
-| 2 — Deploy on Vercel | ✅ **Done** — live at `neko-sysdev.vercel.app`, all crawlers get 200 |
-| 3a — Add domain in Vercel | ✅ **Done** — apex + www added |
-| 3a-bis — Apex as Production | ✅ **Done** — `www → 308 → apex`, matches our canonical tags |
-| 3b — Nameservers at Hostinger | ✅ **Done** — set to `ns1/ns2.vercel-dns.com` |
-| 3b — DNS propagation | ✅ **Done** — propagated 02:02:49 |
-| 3c — `www` → apex redirect | ✅ **Done** — 307, path preserved |
-| 4 — Verify the cutover | ✅ **PASSED** — all 7 crawlers 200, TLS valid, 0 schema errors |
-| 5 — Retire InfinityFree | ✅ **Done** — files deleted, old IP `185.27.134.59` now dead |
-| 6 — Search Console / Bing / GBP | ⬜ **← YOU ARE HERE** |
+| Part                            | Status                                                                            |
+| ------------------------------- | --------------------------------------------------------------------------------- |
+| 1 — Push to GitHub              | ✅ **Done** — `Glenn-IT/Neko-Sysdev`, branch `master`, 60 files, verified via API |
+| 2 — Deploy on Vercel            | ✅ **Done** — live at `neko-sysdev.vercel.app`, all crawlers get 200              |
+| 3a — Add domain in Vercel       | ✅ **Done** — apex + www added                                                    |
+| 3a-bis — Apex as Production     | ✅ **Done** — `www → 308 → apex`, matches our canonical tags                      |
+| 3b — Nameservers at Hostinger   | ✅ **Done** — set to `ns1/ns2.vercel-dns.com`                                     |
+| 3b — DNS propagation            | ✅ **Done** — propagated 02:02:49                                                 |
+| 3c — `www` → apex redirect      | ✅ **Done** — 307, path preserved                                                 |
+| 4 — Verify the cutover          | ✅ **PASSED** — all 7 crawlers 200, TLS valid, 0 schema errors                    |
+| 5 — Retire InfinityFree         | ✅ **Done** — files deleted, old IP `185.27.134.59` now dead                      |
+| 6 — Search Console / Bing / GBP | ⬜ **← YOU ARE HERE**                                                             |
 
 **🎉 The site is live at [neko-sysdev.online](https://neko-sysdev.online).** A plain request with no
 tricks returns `200` from `Server: Vercel` with `<h1>We build Capstone Systems in the Philippines</h1>`,
@@ -28,16 +28,16 @@ and every AI crawler that used to get a 403 now gets full content.
 
 ### Transient: a few visitors may briefly see "Domain Suspended"
 
-InfinityFree now serves a *Domain Suspended* page on its old IP, and a small number of DNS resolvers
+InfinityFree now serves a _Domain Suspended_ page on its old IP, and a small number of DNS resolvers
 still have that IP cached. Anyone who hits a stale resolver in the next short window sees that page
 instead of your site. It clears itself as the cache TTL expires — there is nothing to fix.
 
 Snapshot taken during the changeover:
 
-| Resolver | Returned |
-|---|---|
+| Resolver                                                       | Returned  |
+| -------------------------------------------------------------- | --------- |
 | `8.8.4.4`, `1.1.1.1`, `9.9.9.9`, `208.67.222.222`, `64.6.64.6` | ✅ Vercel |
-| `8.8.8.8` (one Google node lagging) | ⏳ old IP |
+| `8.8.8.8` (one Google node lagging)                            | ⏳ old IP |
 
 **If your own browser still shows it:** that is Chrome's internal DNS cache, not the internet.
 Go to `chrome://net-internals/#dns` → **Clear host cache**, then hard-reload with `Ctrl+Shift+R`.
@@ -144,24 +144,24 @@ Doing this now means any problem shows up while your live domain is still untouc
 
 Checked against `https://neko-sysdev.vercel.app`:
 
-| Path | Result |
-|---|---|
-| `/` | 200 · 374,694 bytes · `text/html` |
+| Path           | Result                              |
+| -------------- | ----------------------------------- |
+| `/`            | 200 · 374,694 bytes · `text/html`   |
 | `/sitemap.xml` | 200 · 905 bytes · `application/xml` |
-| `/robots.txt` | 200 · 599 bytes · `text/plain` |
-| `/llms.txt` | 200 · 10,835 bytes · `text/plain` |
+| `/robots.txt`  | 200 · 599 bytes · `text/plain`      |
+| `/llms.txt`    | 200 · 10,835 bytes · `text/plain`   |
 
 And the crawler test from Part 4, run early against the Vercel URL — **every one of these was `403`
 on InfinityFree**:
 
-| Crawler | HTTP | Bytes | Found real content |
-|---|---|---|---|
-| GPTBot | **200** | 374,694 | ✅ |
-| ClaudeBot | **200** | 374,694 | ✅ |
-| PerplexityBot | **200** | 374,694 | ✅ |
-| CCBot | **200** | 374,694 | ✅ |
-| meta-externalagent | **200** | 374,694 | ✅ |
-| Googlebot | **200** | 374,694 | ✅ |
+| Crawler            | HTTP    | Bytes   | Found real content |
+| ------------------ | ------- | ------- | ------------------ |
+| GPTBot             | **200** | 374,694 | ✅                 |
+| ClaudeBot          | **200** | 374,694 | ✅                 |
+| PerplexityBot      | **200** | 374,694 | ✅                 |
+| CCBot              | **200** | 374,694 | ✅                 |
+| meta-externalagent | **200** | 374,694 | ✅                 |
+| Googlebot          | **200** | 374,694 | ✅                 |
 
 All six found the testimonial text `"Agyaman Kuya"` in the raw HTML with JavaScript disabled. The
 blocking problem is already solved on Vercel — it only needs the domain pointed at it.
@@ -211,9 +211,9 @@ authoritative is one that immediately bounces.
 - [ ] ~~Then hPanel → **DNS Zone** → delete any existing `@` and `www` records, and add exactly what
       Vercel displayed for this project:~~
 
-| Type | Name | Value |
-|---|---|---|
-| `A` | `@` | `216.198.79.1` |
+| Type    | Name  | Value                                  |
+| ------- | ----- | -------------------------------------- |
+| `A`     | `@`   | `216.198.79.1`                         |
 | `CNAME` | `www` | `769b6c3ba6af59d7.vercel-dns-017.com.` |
 
 > ⚠️ **Use the values on your own Vercel screen, not from any tutorial — including this table.** That
@@ -282,36 +282,36 @@ curl -s https://neko-sysdev.online/ | grep -c "Agyaman Kuya"
 - [x] `https://www.neko-sysdev.online` redirects to the main domain
 - [x] A made-up URL like `/nope` shows the styled 404 page
 - [x] Run [PageSpeed Insights](https://pagespeed.web.dev/) on `https://neko-sysdev.online` and save
-      the score — useful as a before/after record *(the anonymous API quota was exhausted; run it in
-      the browser)*
+      the score — useful as a before/after record _(the anonymous API quota was exhausted; run it in
+      the browser)_
 
 ### ✅ Part 4 results — DNS propagated 02:02:49
 
 Registry now delegates to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`.
 
-| Crawler | Old host | **Live domain now** |
-|---|---|---|
-| GPTBot (ChatGPT) | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
-| ClaudeBot | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
-| PerplexityBot | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
-| CCBot (Common Crawl) | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
-| meta-externalagent | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
-| Googlebot | ✅ 200 | ✅ 200 |
-| Bingbot | ✅ 200 | ✅ 200 |
+| Crawler              | Old host | **Live domain now**                       |
+| -------------------- | -------- | ----------------------------------------- |
+| GPTBot (ChatGPT)     | ❌ 403   | ✅ **200 · 374,694 bytes · real content** |
+| ClaudeBot            | ❌ 403   | ✅ **200 · 374,694 bytes · real content** |
+| PerplexityBot        | ❌ 403   | ✅ **200 · 374,694 bytes · real content** |
+| CCBot (Common Crawl) | ❌ 403   | ✅ **200 · 374,694 bytes · real content** |
+| meta-externalagent   | ❌ 403   | ✅ **200 · 374,694 bytes · real content** |
+| Googlebot            | ✅ 200   | ✅ 200                                    |
+| Bingbot              | ✅ 200   | ✅ 200                                    |
 
 All seven found the testimonial text `"Agyaman Kuya"` in raw HTML with JavaScript disabled.
 
-| Check | Result |
-|---|---|
-| TLS certificate | Let's Encrypt, `CN=neko-sysdev.online`, valid to 23 Oct 2026, verifies clean |
-| All 5 routes + 3 SEO files | 200 |
-| `/nope` | 404 with the styled page |
-| `http://` → `https://` | 308 |
-| `www` → apex | 307, path preserved (`/services` → `/services`) |
-| Apex | 200, not redirecting |
-| Canonical on live domain | `https://neko-sysdev.online` |
-| Live domain vs `vercel.app` | byte-identical (matching MD5) |
-| Structured data | **0 errors** across all 5 routes |
+| Check                       | Result                                                                       |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| TLS certificate             | Let's Encrypt, `CN=neko-sysdev.online`, valid to 23 Oct 2026, verifies clean |
+| All 5 routes + 3 SEO files  | 200                                                                          |
+| `/nope`                     | 404 with the styled page                                                     |
+| `http://` → `https://`      | 308                                                                          |
+| `www` → apex                | 307, path preserved (`/services` → `/services`)                              |
+| Apex                        | 200, not redirecting                                                         |
+| Canonical on live domain    | `https://neko-sysdev.online`                                                 |
+| Live domain vs `vercel.app` | byte-identical (matching MD5)                                                |
+| Structured data             | **0 errors** across all 5 routes                                             |
 
 **Minor, optional:** the `www` redirect returns **307** (temporary). **308** (permanent) is slightly
 better for SEO because it tells Google to consolidate ranking signals onto the apex permanently. If
@@ -342,12 +342,12 @@ folder.
 
 ### 6a. Google Search Console
 
-> **Recommended right now: use the DNS method, not the HTML tag.** A *Domain* property covers the
+> **Recommended right now: use the DNS method, not the HTML tag.** A _Domain_ property covers the
 > apex, `www`, `http` and `https` in one go, and it verifies via a TXT record — which sidesteps the
 > stale A-record caches entirely, so it works before the caches expire.
 >
-**✅ Taken: the DNS method.** A *Domain* property covers the apex, `www`, `http` and `https` in one,
-and verifying by TXT record sidesteps stale A-record caches entirely.
+> **✅ Taken: the DNS method.** A _Domain_ property covers the apex, `www`, `http` and `https` in one,
+> and verifying by TXT record sidesteps stale A-record caches entirely.
 
 - [x] Search Console → **Add property** → **Domain** → `neko-sysdev.online`
 - [x] Copy the `google-site-verification=…` TXT value it gives you
@@ -376,23 +376,24 @@ https://neko-sysdev.online/sitemap.xml
 ```
 
 > ⚠️ Entering just `sitemap.xml` returns **"Invalid sitemap address."** That short form only works on
-> *URL-prefix* properties, which display the domain next to the input box. A **Domain** property spans
+> _URL-prefix_ properties, which display the domain next to the input box. A **Domain** property spans
 > many hostnames, so there is no prefix to assume and the full URL is required.
 >
 > Verified as Googlebot: `200` · `application/xml` · 905 bytes · well-formed · 5 URLs, all on
 > `https://neko-sysdev.online` · already advertised in `robots.txt`.
-- [ ] **URL Inspection** → for each of `/`, `/services`, `/projects`, `/about`, `/contact` →
+
+- [x] **URL Inspection** → for each of `/`, `/services`, `/projects`, `/about`, `/contact` →
       **Request indexing**
 
 Pre-checked for you — all five URLs in the sitemap return `200` to Googlebot with unique titles:
 
-| URL | Googlebot | Title |
-|---|---|---|
-| `/` | 200 | NeKo-SysDev \| Professional Capstone System Developers Philippines |
-| `/services` | 200 | Capstone & Website Packages — Prices from ₱3,000 |
-| `/projects` | 200 | 31 Capstone Project Ideas — Web & Mobile Systems |
-| `/about` | 200 | About NeKo System Developers Team — Santo Niño, Cagayan |
-| `/contact` | 200 | Contact NeKo-SysDev — Capstone Developers in Santo Niño, Cagayan |
+| URL         | Googlebot | Title                                                              |
+| ----------- | --------- | ------------------------------------------------------------------ |
+| `/`         | 200       | NeKo-SysDev \| Professional Capstone System Developers Philippines |
+| `/services` | 200       | Capstone & Website Packages — Prices from ₱3,000                   |
+| `/projects` | 200       | 31 Capstone Project Ideas — Web & Mobile Systems                   |
+| `/about`    | 200       | About NeKo System Developers Team — Santo Niño, Cagayan            |
+| `/contact`  | 200       | Contact NeKo-SysDev — Capstone Developers in Santo Niño, Cagayan   |
 
 <details>
 <summary>Alternative HTML-tag method (not used — kept for reference)</summary>
@@ -409,26 +410,26 @@ The code supports it via an env var, if you ever need it instead of DNS:
 
 ### 6b. Bing Webmaster Tools
 
-- [ ] [bing.com/webmasters](https://www.bing.com/webmasters) → **Import from Google Search Console**
+- [x] [bing.com/webmasters](https://www.bing.com/webmasters) → **Import from Google Search Console**
       (fastest) or add the site manually
-- [ ] Submit the same `sitemap.xml`
+- [x] Submit the same `sitemap.xml`
 
 ### 6c. Confirm the structured data
 
-- [ ] [Rich Results Test](https://search.google.com/test/rich-results) → paste
+- [x] [Rich Results Test](https://search.google.com/test/rich-results) → paste
       `https://neko-sysdev.online/services`
-- [ ] Confirm **Organization / ProfessionalService**, **Offer**, **FAQ** and **Breadcrumb** are found
+- [x] Confirm **Organization / ProfessionalService**, **Offer**, **FAQ** and **Breadcrumb** are found
       with no errors
-- [ ] Test `https://neko-sysdev.online/about` too — expect **Review** and **Person**
+- [x] Test `https://neko-sysdev.online/about` too — expect **Review** and **Person**
 
 ### 6d. Google Business Profile — do not skip this one
 
-- [ ] [business.google.com](https://business.google.com) → create a profile for
+- [x] [business.google.com](https://business.google.com) → create a profile for
       **NeKo System Developers Team**
-- [ ] Address: Zone 04, Centro Sur, Santo Niño, Cagayan, Philippines 3525
-- [ ] Category: _Software company_ / _Website designer_
-- [ ] Add the same phone numbers, the website URL, and photos
-- [ ] Complete the postcard/phone verification when it arrives
+- [x] Address: Zone 04, Centro Sur, Santo Niño, Cagayan, Philippines 3525
+- [x] Category: _Software company_ / _Website designer_
+- [x] Add the same phone numbers, the website URL, and photos
+- [x] Complete the postcard/phone verification when it arrives
 
 > For a business with a real physical address, this is normally the **fastest ranking win available**
 > — it puts you in Google Maps and the local results pack. Nothing in the website code can substitute
@@ -463,9 +464,9 @@ wrong, and it is worth knowing now rather than waiting months for something that
 **Keep the markup anyway.** It is valid (audited, zero errors), and it still does real work: AI
 assistants and non-Google engines read it to understand your pricing, credibility and service area —
 which is precisely the audience this rebuild was aimed at. It simply won't change how your listing
-*looks* in Google.
+_looks_ in Google.
 
-Star ratings that Google *does* show for a local business come from **Google Business Profile
+Star ratings that Google _does_ show for a local business come from **Google Business Profile
 reviews** (Part 6d), not from your website. That is another reason 6d matters more than it looks.
 
 ---
@@ -492,14 +493,14 @@ Always run `npm run build` locally before pushing; if it fails there, it will fa
 
 ## If something goes wrong
 
-| Symptom                                 | Fix                                                                                                       |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Push rejected, "updates were rejected"  | Remote has commits yours doesn't. `git pull --rebase origin master`, then push again.                     |
-| Vercel build fails                      | Open the build log. Run `npm run build` locally — the same error appears with more context.               |
-| Domain stuck on "Invalid Configuration" | Nameservers haven't propagated. Check with `nslookup -type=NS neko-sysdev.online` and wait.               |
-| Still seeing the old site               | Browser or DNS cache. Try a private window, or your phone on mobile data instead of Wi-Fi.                |
-| "Not secure" warning                    | The certificate is still being issued. It resolves itself within about an hour of DNS propagating.        |
-| A crawler still returns 403             | Confirm DNS actually moved off `byet.org` — that 403 comes from InfinityFree, not Vercel.                 |
-| Want to move off Vercel later           | Set `NEXT_PUBLIC_SITE_URL` to the new domain. Canonicals, sitemap, JSON-LD and `/llms.txt` all follow it. |
+| Symptom                                     | Fix                                                                                                            |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Push rejected, "updates were rejected"      | Remote has commits yours doesn't. `git pull --rebase origin master`, then push again.                          |
+| Vercel build fails                          | Open the build log. Run `npm run build` locally — the same error appears with more context.                    |
+| Domain stuck on "Invalid Configuration"     | Nameservers haven't propagated. Check with `nslookup -type=NS neko-sysdev.online` and wait.                    |
+| Still seeing the old site                   | Browser or DNS cache. Try a private window, or your phone on mobile data instead of Wi-Fi.                     |
+| "Not secure" warning                        | The certificate is still being issued. It resolves itself within about an hour of DNS propagating.             |
+| A crawler still returns 403                 | Confirm DNS actually moved off `byet.org` — that 403 comes from InfinityFree, not Vercel.                      |
+| Want to move off Vercel later               | Set `NEXT_PUBLIC_SITE_URL` to the new domain. Canonicals, sitemap, JSON-LD and `/llms.txt` all follow it.      |
 | "Invalid sitemap address" in Search Console | You have a Domain property — submit the full `https://neko-sysdev.online/sitemap.xml`, not just `sitemap.xml`. |
-| Search Console shows no data for days   | Normal for a newly crawled domain. Give it 3–7 days before reading anything into the reports. |
+| Search Console shows no data for days       | Normal for a newly crawled domain. Give it 3–7 days before reading anything into the reports.                  |
