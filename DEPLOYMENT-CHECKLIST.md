@@ -16,14 +16,19 @@ InfinityFree site.
 | 3a — Add domain in Vercel | ✅ **Done** — apex + www added |
 | 3a-bis — Apex as Production | ✅ **Done** — `www → 308 → apex`, matches our canonical tags |
 | 3b — Nameservers at Hostinger | ✅ **Done** — set to `ns1/ns2.vercel-dns.com` |
-| **3b — DNS propagation** | ⏳ **WAITING** — registry still reports `ns1/ns2.infinityfree.com` |
-| 4 — Verify the cutover | ⬜ Blocked on propagation |
-| 5 — Retire InfinityFree | ⬜ **Do not start** until Part 4 passes |
-| 6 — Search Console / Bing / GBP | ⬜ Google Business Profile can be started now — it needs no DNS |
+| 3b — DNS propagation | ✅ **Done** — propagated 02:02:49 |
+| 3c — `www` → apex redirect | ✅ **Done** — 307, path preserved |
+| 4 — Verify the cutover | ✅ **PASSED** — all 7 crawlers 200, TLS valid, 0 schema errors |
+| 5 — Retire InfinityFree | ⏳ **Wait for public DNS caches** to expire first (a few hours) |
+| 6 — Search Console / Bing / GBP | ⬜ Can start now — see 6a and 6d |
 
-**Nothing left to click until DNS moves.** The one thing you can usefully do meanwhile is start the
-Google Business Profile in Part 6d; its postcard verification takes days, so the clock is worth
-starting early.
+**🎉 The site is live at [neko-sysdev.online](https://neko-sysdev.online) and every AI crawler that
+was blocked now gets a 200 with full content.**
+
+The only reason Part 5 is not green is that some public resolvers (notably Google's `8.8.8.8`) still
+have the old InfinityFree IP cached, so *your* browser may still show the old site for a few hours.
+Everything above was verified against the real origin. **Do not delete the InfinityFree files until
+`https://neko-sysdev.online` loads the new site in your own browser with no tricks.**
 
 ---
 
@@ -234,7 +239,7 @@ add business email on this domain, the MX records go in Vercel's DNS panel rathe
 
 This is the step that proves the whole migration worked.
 
-- [ ] Run this in Git Bash:
+- [x] Run this in Git Bash:
 
 ```bash
 for ua in "GPTBot/1.1 (+https://openai.com/gptbot)" \
@@ -251,20 +256,54 @@ done
 the old host. If they are all 200 now, ChatGPT, Claude, Perplexity and Common Crawl can read your
 site — that is the goal of this entire migration.
 
-- [ ] Real content is in the raw HTML with no JavaScript (should print a number ≥ 1):
+- [x] Real content is in the raw HTML with no JavaScript (should print a number ≥ 1):
 
 ```bash
 curl -s https://neko-sysdev.online/ | grep -c "Agyaman Kuya"
 ```
 
-- [ ] These all load on the live domain:
+- [x] These all load on the live domain:
       `/` · `/services` · `/projects` · `/about` · `/contact` · `/sitemap.xml` · `/robots.txt` ·
       `/llms.txt`
-- [ ] `http://neko-sysdev.online` upgrades to `https://`
-- [ ] `https://www.neko-sysdev.online` redirects to the main domain
-- [ ] A made-up URL like `/nope` shows the styled 404 page
+- [x] `http://neko-sysdev.online` upgrades to `https://`
+- [x] `https://www.neko-sysdev.online` redirects to the main domain
+- [x] A made-up URL like `/nope` shows the styled 404 page
 - [ ] Run [PageSpeed Insights](https://pagespeed.web.dev/) on `https://neko-sysdev.online` and save
-      the score — useful as a before/after record
+      the score — useful as a before/after record *(the anonymous API quota was exhausted; run it in
+      the browser)*
+
+### ✅ Part 4 results — DNS propagated 02:02:49
+
+Registry now delegates to `ns1.vercel-dns.com` / `ns2.vercel-dns.com`.
+
+| Crawler | Old host | **Live domain now** |
+|---|---|---|
+| GPTBot (ChatGPT) | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
+| ClaudeBot | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
+| PerplexityBot | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
+| CCBot (Common Crawl) | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
+| meta-externalagent | ❌ 403 | ✅ **200 · 374,694 bytes · real content** |
+| Googlebot | ✅ 200 | ✅ 200 |
+| Bingbot | ✅ 200 | ✅ 200 |
+
+All seven found the testimonial text `"Agyaman Kuya"` in raw HTML with JavaScript disabled.
+
+| Check | Result |
+|---|---|
+| TLS certificate | Let's Encrypt, `CN=neko-sysdev.online`, valid to 23 Oct 2026, verifies clean |
+| All 5 routes + 3 SEO files | 200 |
+| `/nope` | 404 with the styled page |
+| `http://` → `https://` | 308 |
+| `www` → apex | 307, path preserved (`/services` → `/services`) |
+| Apex | 200, not redirecting |
+| Canonical on live domain | `https://neko-sysdev.online` |
+| Live domain vs `vercel.app` | byte-identical (matching MD5) |
+| Structured data | **0 errors** across all 5 routes |
+
+**Minor, optional:** the `www` redirect returns **307** (temporary). **308** (permanent) is slightly
+better for SEO because it tells Google to consolidate ranking signals onto the apex permanently. If
+Vercel's domain settings offer a status-code choice, switch it. Low impact — the canonical tag
+already does most of this work.
 
 ---
 
@@ -289,6 +328,19 @@ folder.
 ## Part 6 — Get indexed by Google, Bing and the AI crawlers
 
 ### 6a. Google Search Console
+
+> **Recommended right now: use the DNS method, not the HTML tag.** A *Domain* property covers the
+> apex, `www`, `http` and `https` in one go, and it verifies via a TXT record — which sidesteps the
+> stale A-record caches entirely, so it works before the caches expire.
+>
+> - [ ] Search Console → **Add property** → **Domain** → `neko-sysdev.online`
+> - [ ] Copy the `google-site-verification=…` TXT value it gives you
+> - [ ] Vercel → **Settings → Domains → DNS Records** (Vercel runs your DNS now) → add a `TXT`
+>       record on `@` with that value → Save
+> - [ ] Back in Search Console → **Verify**
+>
+> If you'd rather use the HTML tag, the steps below still work — but wait until DNS caches have
+> expired everywhere.
 
 - [ ] [search.google.com/search-console](https://search.google.com/search-console) → **Add property**
       → **URL prefix** → `https://neko-sysdev.online`
@@ -337,11 +389,30 @@ folder.
 | Immediately | Site live on the domain, AI crawlers unblocked                                     |
 | 1–3 days    | Google re-crawls; the new pages start appearing                                    |
 | 1–3 weeks   | The old single-page result is replaced by your 5 new URLs                          |
-| 2–6 weeks   | Review stars and FAQ rich results may appear in listings                           |
 | 4–12 weeks  | AI assistants pick the site up (they refresh their indexes on their own schedules) |
 
 Search rankings are never instant, and nobody can promise position #1. What this build does is remove
 every technical reason for Google or an AI assistant to _skip_ you.
+
+### ⚠️ Correction — do not expect review stars or FAQ boxes
+
+An earlier draft of this file said stars and FAQ rich results would appear in 2–6 weeks. **That was
+wrong, and it is worth knowing now rather than waiting months for something that will not come.**
+
+- **Review stars won't show.** Google does not display review rich results for reviews a business
+  collects and publishes about itself on its own site — that is a "self-serving review" and is
+  explicitly disallowed for `LocalBusiness` / `Organization` types. Our `AggregateRating` and six
+  `Review` nodes fall squarely in that category.
+- **FAQ boxes won't show either.** In August 2023 Google restricted FAQ rich results to well-known
+  government and health sites. Ordinary business sites no longer get them.
+
+**Keep the markup anyway.** It is valid (audited, zero errors), and it still does real work: AI
+assistants and non-Google engines read it to understand your pricing, credibility and service area —
+which is precisely the audience this rebuild was aimed at. It simply won't change how your listing
+*looks* in Google.
+
+Star ratings that Google *does* show for a local business come from **Google Business Profile
+reviews** (Part 6d), not from your website. That is another reason 6d matters more than it looks.
 
 ---
 
