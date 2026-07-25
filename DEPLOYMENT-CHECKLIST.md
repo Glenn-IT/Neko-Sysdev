@@ -368,7 +368,8 @@ google-site-verification=Iq94DU9pLsY79ObmTHQ3RCgEpE0mCIN1DhvAJOYsKzU
 
 **Now do these two — the property being verified does not by itself submit anything:**
 
-- [ ] **Sitemaps** → enter the **full URL** → **Submit**
+- [x] **Sitemaps** → enter the **full URL** → **Submit**
+      → **"Sitemap processed successfully" · 5 discovered pages** ✅
 
 ```
 https://neko-sysdev.online/sitemap.xml
