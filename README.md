@@ -84,13 +84,20 @@ Two rules the effects follow, because this is a site that has to rank:
 
 ## Deploying to Vercel
 
+**Full step-by-step guide: [`DEPLOYMENT-CHECKLIST.md`](./DEPLOYMENT-CHECKLIST.md).**
+Short version:
+
 1. Push this directory to a GitHub repository.
 2. In Vercel, **Add New → Project**, import the repo. The framework is detected
    automatically; no build settings need changing.
-3. **Settings → Domains → Add** `neko-sysdev.online` (and `www.neko-sysdev.online`),
-   then point the domain's DNS at Vercel. Vercel shows the exact record values to
-   use for your domain and issues the TLS certificate itself.
-4. Redeploy. HTTPS and the `www` → apex redirect are handled by Vercel.
+3. **Settings → Domains → Add** `neko-sysdev.online` and `www.neko-sysdev.online`.
+4. At the registrar (Hostinger), replace the nameservers with the two Vercel
+   displays on that Domains screen. Use Vercel's current values — its published
+   IPs and nameservers have changed over time, so never copy them from a tutorial.
+5. HTTPS and the `www` → apex redirect are handled by Vercel once DNS resolves.
+
+Set `GOOGLE_SITE_VERIFICATION` in the Vercel project's environment variables to add
+the Search Console ownership tag; it is omitted when unset.
 
 ### Changing the domain
 

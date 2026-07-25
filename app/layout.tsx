@@ -57,6 +57,12 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
   },
   twitter: { card: "summary_large_image" },
+  // Google Search Console ownership. Set GOOGLE_SITE_VERIFICATION in the Vercel
+  // project's environment variables and redeploy — no code change needed. The tag
+  // is omitted entirely when the variable is unset.
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export const viewport: Viewport = {

@@ -30,6 +30,8 @@
   ],
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/404.html", "destination": "/", "permanent": true }
+    { "source": "/404.html", "destination": "/", "permanent": true },
+    { "source": "/Uki.html", "destination": "/", "permanent": true },
+    { "source": "/:file(.*).md", "destination": "/", "permanent": true }
   ]
 }
