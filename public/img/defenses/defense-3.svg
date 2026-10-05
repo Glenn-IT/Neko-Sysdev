@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1215"/>
+      <stop offset="50%" stop-color="#10252b"/>
+      <stop offset="100%" stop-color="#161c3b"/>
+    </linearGradient>
+    <radialGradient id="orb3" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#059669" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0a1215" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <rect width="800" height="480" fill="url(#bg3)"/>
+  <circle cx="400" cy="200" r="280" fill="url(#orb3)"/>
+
+  <!-- Status Pill -->
+  <rect x="250" y="45" width="300" height="34" rx="17" fill="#10252b" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.6"/>
+  <circle cx="270" cy="62" r="5" fill="#34d399"/>
+  <text x="290" y="68" fill="#34d399" font-family="system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="1">ZERO MAJOR REVISIONS</text>
+
+  <!-- Shield Check Icon -->
+  <g transform="translate(375, 110) scale(1.1)">
+    <path d="M40 10 L65 20 L65 45 C65 65 40 75 40 75 C40 75 15 65 15 45 L15 20 Z" fill="#047857" opacity="0.6" stroke="#34d399" stroke-width="2"/>
+    <path d="M28 42 L36 50 L52 34" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- Project Title & Details -->
+  <text x="400" y="240" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="23" font-weight="700">
+    Disaster Management Information System (ODMIS)
+  </text>
+  
+  <text x="400" y="275" text-anchor="middle" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="16" font-weight="500">
+    Group Gamma — Information Technology Dept.
+  </text>
+
+  <!-- Badge banner -->
+  <rect x="240" y="320" width="320" height="42" rx="10" fill="#0c1e24" stroke="#34d399" stroke-width="1.5" stroke-opacity="0.5"/>
+  <text x="400" y="347" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="15" font-weight="600">
+    ★ Defense Panel Certified Passed ★
+  </text>
+
+  <text x="400" y="410" text-anchor="middle" fill="#9494b8" font-family="system-ui, sans-serif" font-size="14" font-style="italic">
+    "Kuya Thank you ta tinulungan na kami nga agprepare para iti defense mi."
+  </text>
+</svg>
