@@ -1,4 +1,5 @@
 import { TestimonialSlider } from "@/components/interactive/TestimonialSlider";
+import { GoogleRatingBadge } from "@/components/ui/GoogleRatingBadge";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Testimonials({
@@ -25,7 +26,8 @@ export function Testimonials({
         What Our
       </SectionHeading>
 
-      <div className="relative z-10 mt-16">
+      <div className="relative z-10 mt-12">
+        <GoogleRatingBadge variant="card" className="mb-10" />
         <TestimonialSlider />
       </div>
     </section>

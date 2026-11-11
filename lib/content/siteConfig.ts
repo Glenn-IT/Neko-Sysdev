@@ -44,6 +44,7 @@ export const contact = {
     lines: ["Zone 04, Centro Sur", "Santo Niño, Cagayan", "Philippines, 3525"],
   },
   messenger: "https://m.me/glenard.pagurayan",
+  googleMaps: "https://maps.app.goo.gl/SEwg6E9k2G9irA2B6",
 } as const;
 
 export type SocialLink = {

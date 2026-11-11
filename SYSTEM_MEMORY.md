@@ -1,6 +1,6 @@
 # NeKo-SysDev — System Memory & Technical Registry
 > **Document Purpose:** Single source of persistent memory for system architecture, hardware environment, developer tools, repository state, and deployment workflow for NeKo System Developers.  
-> **Last Verified:** October 2026
+> **Last Verified:** November 2026
 
 ---
 
@@ -83,6 +83,27 @@
 ### 3. Visual Language
 - **Theme:** Deep navy-purple base (`#0d0c22`, `#181739`), glassmorphic overlays, amethyst to Klein blue gradients.
 - **Design Origin:** Upgraded successor to `C:\xampp\htdocs\Dev-Portfolio` and inspired by `glenn-it.github.io/Glenn_Portfolio`.
+
+### 4. Client Social Proof & Legitimacy Engine
+- **Google Ratings & Maps Verification:**
+  - **Google Maps Listing:** [`https://maps.app.goo.gl/SEwg6E9k2G9irA2B6`](https://maps.app.goo.gl/SEwg6E9k2G9irA2B6)
+  - **Central Config:** `contact.googleMaps` in `lib/content/siteConfig.ts`.
+  - **SEO Authority:** Linked directly inside `sameAs` array in `organizationSchema()` (`lib/schema.ts`) so crawlers bind site authority to the Google Business Profile.
+  - **Component:** `components/ui/GoogleRatingBadge.tsx` supporting `compact`, `card`, and `hero` variants (used in Hero, Testimonials header, and Contact Location card).
+- **Thesis Defense Proof & Chat Receipt Architecture:**
+  - **Purpose:** Primary trust driver for students commissioning capstone and thesis systems.
+  - **Storage Directory:** `public/testimonials/` (e.g. `chat-1.jpg`, `defense-1.jpg`).
+  - **Data Model:** Typed fields `defensePhoto?: string` and `chatProof?: string` in `lib/content/testimonials.ts`.
+  - **Privacy Standard:** Mandatory obscuration/blurring of student full names and identifying school ID numbers to preserve academic safety while showing genuine defense congratulations.
+  - **Interactive Lightbox:** Built into `components/interactive/TestimonialSlider.tsx` with modal view toggling between Messenger conversation screenshots and defense celebration photos.
+
+### 5. Infinite Tech Logo Marquee
+- **Component:** `components/interactive/TechMarquee.tsx` embedded directly in `components/sections/Skills.tsx` (replaces legacy static cards grid).
+- **Layout & Sizing:** Edge-to-edge full screen width across desktops, with deep gradient fade masks on left and right borders.
+- **Badge Design:** Sleek, minimal logo badges (Icon + Technology Name, descriptions omitted for a clean aesthetic).
+- **Animation:** Dual-direction continuous loop at a comfortable, smooth 48s duration (`@keyframes neko-marquee` and `neko-marquee-reverse` in `app/globals.css`).
+- **Features:** Hover-to-pause (`group-hover:[animation-play-state:paused]`) and seamless infinite array duplication (`-50%` translate).
+- **Tech Stack Data:** Centralized in `lib/content/skills.ts` with 24 technologies including Next.js, React, TypeScript, Tailwind CSS, Laravel, PHP, Flutter, Android, Arduino & IoT, Python, Node.js, and MySQL.
 
 ---
 

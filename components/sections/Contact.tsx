@@ -88,6 +88,15 @@ export function Contact({
                     </span>
                   ))}
                 </p>
+                <a
+                  href={contact.googleMaps}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-amethyst-400 transition-colors duration-200 hover:text-white"
+                >
+                  <span>View on Google Maps</span>
+                  <Icon name="FaArrowRight" className="text-[10px]" />
+                </a>
               </div>
             </div>
           </Reveal>

@@ -4,6 +4,9 @@ export type Testimonial = {
   text: string;
   author: string;
   role: string;
+  projectTitle?: string;
+  defensePhoto?: string;
+  chatProof?: string;
 };
 
 /**

@@ -1,4 +1,5 @@
 import { TypingHeadline } from "@/components/interactive/TypingHeadline";
+import { GoogleRatingBadge } from "@/components/ui/GoogleRatingBadge";
 import { GradientLink } from "@/components/ui/GradientButton";
 import { Icon } from "@/components/ui/Icon";
 import { skills } from "@/lib/content/skills";
@@ -43,15 +44,18 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto w-full max-w-4xl">
         <div className="text-center">
-          {/* Status pill */}
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-amethyst-500/20 bg-amethyst-500/10 px-4 py-2">
-            <span
-              aria-hidden="true"
-              className="h-2 w-2 animate-pulse rounded-full bg-success"
-            />
-            <span className="text-sm font-medium text-nav">
-              Now booking capstone projects
-            </span>
+          {/* Status pill & Trust badges */}
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-amethyst-500/20 bg-amethyst-500/10 px-4 py-1.5 backdrop-blur-sm">
+              <span
+                aria-hidden="true"
+                className="h-2 w-2 animate-pulse rounded-full bg-success"
+              />
+              <span className="text-xs font-medium text-nav sm:text-sm">
+                Now booking capstone projects
+              </span>
+            </div>
+            <GoogleRatingBadge variant="compact" />
           </div>
 
           <p className="mb-3 font-mono text-lg font-medium text-amethyst-400">

@@ -34,7 +34,7 @@ export function organizationSchema() {
     areaServed: { "@type": "Country", name: "Philippines" },
     priceRange: `${formatPeso(services[0].price)}+`,
     knowsLanguage: ["en", "fil", "ilo"],
-    sameAs: socials.map((s) => s.href),
+    sameAs: [...socials.map((s) => s.href), contact.googleMaps],
     founder: team.map((member) => ({
       "@type": "Person",
       name: member.name,
